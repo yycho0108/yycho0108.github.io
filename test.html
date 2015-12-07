@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 	<style>
-		.header{
+		body{
+			width:100%;
+			height: 100%;
+		}
+		div.header{
 			background-color: black;
 			border-width: 20px;
 			border-style: double;
@@ -11,37 +16,69 @@
 			color:white;
 			padding: 20px;
 		}
-		.content{
-			float:left;
-			background-color:lightcyan;
-			height: 10%;
+		div.container{
+			display : table-row;
+			width : 100%;
 		}
-		.footer{
+		div.nav{
+			display : table-cell;
+			background-color:lightcyan;
+			height: 100%;
+			width : 20%;
+		}
+		div.preview{
+			display : table-cell;
+			background-color:white;
+			border-color: black;
+			border-width: thin;
+			height : 100%;
+			width : 80%;
+		}
+		div.footer{
 			background-color: black;
 			border-width: 20px;
 			border-style: solid;
 			border-color: white;
 			bottom: 0px;
 		}
+		#prev{
+			height : 100%;
+			width : 100%;
+		}
 	</style>
 	<head>
 		<meta charset="utf-8">
 		<title>TestPage</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	</head>
 	<body>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("a").hover(function(){ // mouseIn
+					$("#prev").attr({'src': $(this).attr('href')}); // display preview
+				},function(){ //mouseOut
+					$("#prev").attr({'src':"about:blank"});
+				})
+			})
+		</script>
 		<div class="header">
-			<img height="80%" src="duv.png">
 			<p>Jamie Cho's Web Page!</p>
 		</div>
-		<div class="content">
-			<h1>Noteworthy Projects:</h1>
-			<ul>
-				<li><a href = 'https://github.com/yycho0108/OlinSchedulerPy'>Olin Scheduler(Python3/Qt4)</a></li>
-				<li><a href = 'https://github.com/yycho0108/FireBubble'>FireBubble(C++,WINAPI)</a></li>
-				<li><a href = 'https://github.com/yycho0108/PuzzleMaker'>Puzzle Maker(C++,WINAPI)</a></li>
-				<li><a href = 'https://github.com/yycho0108/ASCII_ART'>ASCII Art Generator(C++,WINAPI)</a></li>
-				<li><a href = 'https://github.com/yycho0108/OpenGL_Framework'>OpenGL Framework(C++,OpenGL)</a></li>
-			</ul>
+		<div class="container">
+			<div class="nav">
+				<h1>Noteworthy Projects:</h1>
+				<ul>
+					<li><a href = 'https://github.com/yycho0108/OlinSchedulerPy'>Olin Scheduler(Python3/Qt4)</a></li>
+					<li><a href = 'https://github.com/yycho0108/FireBubble'>FireBubble(C++,WINAPI)</a></li>
+					<li><a href = 'https://github.com/yycho0108/PuzzleMaker'>Puzzle Maker(C++,WINAPI)</a></li>
+					<li><a href = 'https://github.com/yycho0108/ASCII_ART'>ASCII Art Generator(C++,WINAPI)</a></li>
+					<li><a href = 'https://github.com/yycho0108/OpenGL_Framework'>OpenGL Framework(C++,OpenGL)</a></li>
+				</ul>
+			</div>
+			<div class="preview">
+				<iframe id="prev" src="about:blank"></iframe>
+			</div>
+
 		</div>
 		<div class="footer">
 			<ul>
