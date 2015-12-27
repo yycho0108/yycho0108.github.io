@@ -2,7 +2,12 @@ body{
     width:100%;
     height: 100%;
 }
+.emphasis{
+    font-size: 120%;
+    font-weight: bold;
+}
 div.header{
+    height : 10%;
     background-color: black;
     border-width: 20px;
     border-style: double;
@@ -11,11 +16,57 @@ div.header{
     font-size: 30px;
     color:white;
     padding: 20px;
+    top : 0px;
+}
+div.banner{
+    background-color : beige;
+    border-color: red;
+    border-width: thick;
+    height: 30px;
+    width:100%
+}
+div.content{
+    float: left;
+    background-color: aliceblue;
+    height : 100%;
+    width:30%
+}
+ul.banner{ /*Table Of Content*/
+    position : relative;
+    color:black;
+    font-weight: bold;
+    background: grey;
+    margin: 0 auto;
+    border-width: thick;
+    border-color: aqua;
+    list-style-type: none;
+}
+li.bannerItem{
+    text-align: center;
+    display : block;
+    float: left;
+    /*background-color:darkgray;*/
+    color:black;
+    border-width: thin;
+    border-color: white;
+    border-style: solid;
+    /*margin: 5%;*/
+    padding-left: 10px;
+    padding-right: 10px;
+}
+li.bannerItem::after{
+    float : top;
+    content: ""
+}
+.dropdown{
+    display: block;
+    background-color: snow;
 }
 div.wrapper{
     display:table;
     width : 100%;
     height : 80%;
+    margin : 2%
 }
 div.container{
     display : table-row;
@@ -42,12 +93,16 @@ div.preview{
     overflow:auto;
 }
 div.footer{
+    position:fixed;
+    float:top;
     background-color: black;
     border-width: 20px;
     border-style: solid;
     border-color: white;
     color:white;
     bottom: 0px;
+    width : 100%;
+    padding : 10px;
 }
 #prev{
     height : 100%;

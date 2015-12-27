@@ -4,49 +4,147 @@
 		<meta charset="utf-8">
 		<title>Jamie Cho</title>
 		<link rel="stylesheet" href="styles.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
+		<script src="jquery-1.11.3.js"></script> <!-- for development -->
+		<script src="three.min.js"></script>
+		<script src="STLLoader.js"></script>
+		<script type="text/javascript">
+			var scene, camera,renderer,mesh;
+			function initContext(){
+				var container = $("#profile").get(0);
+				//camera = new THREE.PerspectiveCamera(35,window.innerWidth/window.innerHeight,1,10000);
+				camera = new THREE.OrthographicCamera(-25,25,25,-25,1,100)
+				camera.position.set(0,0,-40);
+				scene = new THREE.Scene();
+
+				var l = new THREE.STLLoader();
+				l.load('./Object/ShadowCube_CHO_2.STL',function(g){
+					var m = new THREE.MeshLambertMaterial({color: 0xAA5522});
+					mesh = new THREE.Mesh(g,m);
+
+					scene.add(mesh);
+				});
+
+				var dLight = new THREE.DirectionalLight(0x88FF88,0.8);
+				dLight.position.set(0,20,-70);
+				scene.add(dLight);
+
+				var aLight = new THREE.AmbientLight(0x222222);
+				scene.add(aLight);
+
+				renderer = new THREE.WebGLRenderer({antialias:true});
+				renderer.setSize(100,100);
+				container.appendChild(renderer.domElement);
+				//resize event
+			}
+			function animate(){
+				requestAnimationFrame(animate);
+				render();
+			}
+			var begin = Date.now();
+			function lerp(a,b,c){
+				return a*(1-c)+b*c;
+			}
+			function colLerp(a,b,c){
+				var aR = a & 0xFF0000;
+				var aG = a & 0x00FF00;
+				var aB = a & 0x0000FF;
+
+				var bR = b & 0xFF0000;
+				var bG = b & 0x00FF00;
+				var bB = b & 0x0000FF;
+
+				var R = lerp(aR,bR,c) & 0xFF0000;
+				var G = lerp(aG,bG,c) & 0x00FF00;
+				var B = lerp(aB,bB,c) & 0x0000FF;
+				return R+G+B;
+			}
+			function getLerp(){
+				var state= ((Date.now() - begin) % 6e3)/6e3;
+				var C = new THREE.Vector3(0,Math.PI/2,Math.PI/2);
+				var H = new THREE.Vector3(Math.PI/2,Math.PI,Math.PI/2);
+				var O = new THREE.Vector3(0,Math.PI,Math.PI/2);
+				var cCol = 0xAA5522;
+				var hCol = 0x8811CC;
+				var oCol = 0xC2BB58;
+
+				if(state < 1/9){
+					return [C, cCol];
+				}else if(state<3/9){
+					state -= 1/9;
+					return [C.lerp(H,state*9/2), colLerp(cCol,hCol,state*9/2)];
+				}else if(state<4/9){
+					return [H, hCol];
+				}else if(state<6/9){
+					state -= 4/9;
+					return [H.lerp(O,state*9/2), colLerp(hCol,oCol,state*9/2)];
+				}else if(state<7/9){
+					return [O,oCol];
+				}else{
+					state -= 7/9;
+					return [O.lerp(C,state*9/2),colLerp(oCol,cCol,state*9/2)];
+				}
+				// 0.0 ~ 0.1 = C
+				// 0.1 ~ 0.3 = C-H
+				// 0.3 ~ 0.4 = H
+				// 0.4 ~ 0.6 = H-O
+				// 0.6 ~ 0.7 = O
+				// 0.7 ~ 0.9 = O-C
+			}
+			function render(){
+
+				mesh.position.set(0,0,0);
+				mesh.rotation.set(0,0,0);
+
+				var r=80;
+				var l = getLerp();
+				mesh.material.color.setHex(l[1]);
+				mesh.rotateX(l[0].x);
+				mesh.rotateY(l[0].y);
+				mesh.rotateZ(l[0].z);
+				mesh.translateX(-20);
+				mesh.translateY(-20);
+				mesh.translateZ(-20);
+				camera.lookAt(scene.position);
+				renderer.render(scene, camera);
+				renderer.setClearColor(0x000000, 1);}
+		</script>
 	</head>
 
 	<body>
 		<script type="text/javascript">
 			$(document).ready(function(){
+				$(".dropdown").hide();
 				$("a").hover(function(){ // mouseIn
+					$(this).animate({fontSize:'120%'});
 					$("#prev").attr({'src': $(this).attr('prev')}); // display preview
 				},function(){ //mouseOut
+					$(this).animate({fontSize:'100%'});
 					$("#prev").attr({'src':"about:blank"});
 				})
+				initContext();
+				animate();
 			})
 		</script>
 		<div class="header">
-			<p>Jamie Cho's Web Page!</p>
+			<table>
+				<tr>
+					<!--<td width="10%"> <img src = "Image/duv.png" style = "height: 30%;width: auto"></td>-->
+					<td width="10%" height="100%"><div id="profile" style="width: 100%;height: 100%"></div></td>
+					<td width="90%" height="100%"><p style = "margin-left: 5%">Jamie Cho's Web Page!</p></td>
+				</tr>
+			</table>
 		</div>
-		<div class="wrapper">
-			<div class="container">
-				<div class="nav">
-					<h3>Noteworthy Projects:</h3>
-					<dl>
-						<dt><a href = 'https://github.com/yycho0108/OlinSchedulerPy' prev = 'https://raw.githubusercontent.com/yycho0108/OlinSchedulerPy/master/img/schedule.png'>Olin Scheduler</a></dt>
-						<dd>(Python3/Qt4) : Graphic UI, Web Scraping</dd>
-						<dd>Software for Visualization of Olin Courses.</dd>
-						<dt><a href = 'https://github.com/yycho0108/FireBubble' prev="">FireBubble</a></dt>
-						<dd>(C++,WINAPI) : Game, Color Detection, Customization</dd>
-						<dd>Game that extends on the arcade game 'PuzzleBobble'</dd>
-						<dt><a href = 'https://github.com/yycho0108/PuzzleMaker' prev="">Puzzle Maker</a></dt>
-						<dd>(C++,WINAPI) : Image Analysis, Interaction</dd>
-						<dd>Software that creates a puzzle from an image</dd>
-						<dt><a href = 'https://github.com/yycho0108/ASCII_ART' prev="">ASCII Art Generator</a></dt>
-						<dd>(C++,WINAPI) : Image Analysis, Customization</dd>
-						<dd>Software that creates an ASCII-ART from an image</dd>
-						<dt><a href = 'https://github.com/yycho0108/OpenGL_Framework' prev="">OpenGL Framework</a></dt>
-						<dd>(C++,OpenGL) : Framework, OOP, Library</dd>
-						<dd>Simple framework that eases the use of OpenGL through abstraction</dd>
-						<dd></dd>
-					</dl>
-				</div>
-				<div class="preview">
-					<img id = "prev" src="" width="100%" height="100%"/>
-				</div>
-			</div>
+		<div class="banner">
+			<ul class="banner">
+				<li class="bannerItem"><a href="index.html">Index</a></li>
+				<li class="bannerItem"><a href="programming.html">Programming</a></li>
+				<li class="bannerItem"><a href="art.html">Art</a></li>
+				<li class="bannerItem"><a href="music.html">Music</a></li>
+			</ul>
+		</div>
+		<div class="content">
+			[Content To Be Added];
 		</div>
 		<div class="footer">
 			<ul>
