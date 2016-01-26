@@ -26,7 +26,7 @@ div.banner{
     width:100%
 }
 div.content{
-    float: left;
+    float: top;
     background-color: aliceblue;
     height : 100%;
     width:30%
@@ -46,6 +46,7 @@ li.bannerItem{
     display : block;
     float: left;
     /*background-color:darkgray;*/
+    font-family: sans-serif;
     color:black;
     border-width: thin;
     border-color: white;
@@ -60,6 +61,7 @@ li.bannerItem::after{
 }
 .dropdown{
     display: block;
+    list-style-type: none;
     background-color: snow;
 }
 div.wrapper{
