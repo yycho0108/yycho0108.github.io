@@ -3,29 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <style>
+
+        div.ClassBox {
+            display: inline-block;
+            width: 90%;
+            height: 300px;
+            margin: 10px;
+            padding: 20px;
+            border: 3px solid #73AD21;
+        }
+
         div.GroupBox {
             border-width: thick;
             border-color: black;
         }
 
         div.Descriptor {
+            display : inline-block;
             float: top;
-            height: 150px;
+            height: 100px;
             width: 80%;
         }
+
         div.Visual {
+            display: inline-block;
             float: left;
             width: 150px;
-            height: 150px;
+            height: 200px;
         }
+
         div.Explain {
             float: left;
             width: 60%;
             height: 100%;
         }
-        div.divide{
-            float:none;
-            width:100%;
+
+        div.divide {
+            float: none;
+            width: 100%;
             height: 1px;
         }
     </style>
@@ -45,50 +60,68 @@
 <div class="GroupBox">
     <h2>FA2015</h2>
 
-    <h3>Modelling and Simulation</h3>
-    <ul>
-        <li>PharmacoKinetics : Caffeine</li>
-        A study on the decomposition of caffeine, in multiple doses, taken regularly over time.
-        <li>Thermodynamics : Solar-Power Cooker</li>
-        A study on the use of solar power as an alternative energy source to fuel meal-cooking in the Himalayas
-        <li> Mechanics : Kinetic Pendulum<br></li>
-        <div class="Descriptor">
-            <div class="Visual">
-                <img src="Image/kPendulum.jpg" width="100%" height="100%">
+    <div class="ClassBox">
+        <h3>Modelling and Simulation</h3>
+        <ul>
+            <li>PharmacoKinetics : Caffeine</li>
+            A study on the decomposition of caffeine, in multiple doses, taken regularly over time.
+            <li>Thermodynamics : Solar-Power Cooker</li>
+            A study on the use of solar power as an alternative energy source to fuel meal-cooking in the Himalayas
+            <li> Mechanics : Kinetic Pendulum<br></li>
+            <div class="Descriptor">
+                <div class="Visual">
+                    <img src="Image/kPendulum.jpg" width="100%" height="100%">
+                </div>
+                <div class="Explain">
+                    An analysis on the perpetual-motion machine with Lagrangian Mechanics, using MATLAB and Mathematica.
+                </div>
             </div>
-            <div class="Explain">
-                An analysis on the perpetual-motion machine with Lagrangian Mechanics
+        </ul>
+    </div>
+
+
+    <div class="divide"></div>
+    <div class="ClassBox">
+        <h3>Introduction to Sensors, Instruments, and Measurement</h3>
+        <ul>
+            <li>Audio Localization</li>
+            <div class="Descriptor">
+                <div class="Visual">
+                    <video width="100%" height="100%">
+                        Your Browser Does Not Support The Video Tag.
+                        <source src="Video/AudioLocator.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="Explain">
+                    Stuff
+                </div>
             </div>
-        </div>
-        <div class="divide"></div>
-    </ul>
-    <h3>Introduction to Sensors, Instruments, and Measurement</h3>
-    <ul>
-        <li>Audio Localization</li>
-        <div class="Descriptor">
-            <div class="Visual">
-                <video width="100%" height="100%">
-                    Your Browser Does Not Support The Video Tag.
-                    <source src="Video/AudioLocator.mp4" type="video/mp4">
-                </video>
+        </ul>
+
+    </div>
+
+    <div class="divide"></div>
+    <div class="ClassBox">
+        <h3>Design Nature</h3>
+        <ul>
+            <li> Hopper Project</li>
+            <li> Thresher-Shark Play Experience</li>
+            <div class="Descriptor">
+                <div class="Visual">
+                    <video width="100%" height="100%">
+                        Your Browser Does Not Support The Video Tag.
+                        <source src="Video/SharkAnimation.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="Explain">
+                    An animated depiction of the play experience.
+                </div>
             </div>
-            <div class="Explain">
-                Stuff
-            </div>
-        </div>
-        <div class="divide"></div>
-    </ul>
-    <h3>Design Nature</h3>
-    <ul>
-        <li> Hopper Project</li>
-        <li> Thresher-Shark Play Experience</li>
-        <video>
-            Your Browser Does Not Support The Video Tag.
-            <source src="Video/SharkAnimation.mp4" type="video/mp4">
-        </video>
-        An animated depiction of the play experience.
-    </ul>
+        </ul>
+    </div>
+
 </div>
+
 
 <h2>SP2016</h2>
 

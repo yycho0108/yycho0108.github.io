@@ -8,6 +8,7 @@ body{
 }
 div.header{
     height : 10%;
+    width: 80%;
     background-color: black;
     border-width: 20px;
     border-style: double;
@@ -72,7 +73,7 @@ div.wrapper{
 }
 div.container{
     display : table-row;
-    width : 100%;
+    width : 80%;
     height : 100%;
     padding: 20px;
     overflow:auto;
