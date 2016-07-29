@@ -2,54 +2,67 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>TestPage</title>
+		<title>Jamie Cho</title>
 		<link rel="stylesheet" href="styles.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
+		<script src="jquery-1.11.3.js"></script> <!-- for development -->
+		<script src="three.min.js"></script>
+		<script src="STLLoader.js"></script>
+		<script src="animateCube.js"></script>
 	</head>
 
 	<body>
 		<script type="text/javascript">
 			$(document).ready(function(){
-				$("a").hover(function(){ // mouseIn
+				$(".dropdown").hide();
+				/*$("a").hover(function(){ // mouseIn
+					$(this).animate({fontSize:'120%'});
 					$("#prev").attr({'src': $(this).attr('prev')}); // display preview
 				},function(){ //mouseOut
+					$(this).animate({fontSize:'100%'});
 					$("#prev").attr({'src':"about:blank"});
-				})
+				});*/
+				$(".bannerItem").hover(function(){
+					$(this).children(".dropdown").slideDown();
+				},function(){
+					$(this).children(".dropdown").slideUp();
+				});
+				initContext(); //for animating cube
+				animate();
 			})
 		</script>
 		<div class="header">
-			<p>Jamie Cho's Web Page!</p>
+			<table width="100%">
+				<tr>
+					<td style = "width: 10%; height : 100%"><div id="profile" style="width: 100%;height: 100%"></div></td>
+					<td style = "width: 40%; height : 100%"><h4 style = "margin-left: 5%">Jamie Cho's Web Page!</h4></td>
+					<!--<td width="50%" style="background-color: darkturquoise"></td>-->
+				</tr>
+			</table>
 		</div>
-		<div class="wrapper">
-			<div class="container">
-				<div class="nav">
-					<h3>Noteworthy Projects:</h3>
-					<dl>
-						<dt><a href = 'https://github.com/yycho0108/OlinSchedulerPy' prev = 'https://raw.githubusercontent.com/yycho0108/OlinSchedulerPy/master/img/schedule.png'>Olin Scheduler</a></dt>
-						<dd>(Python3/Qt4) : Graphic UI, Web Scraping</dd>
-						<dd>Software for Visualization of Olin Courses.</dd>
-						<dt><a href = 'https://github.com/yycho0108/FireBubble' prev="">FireBubble</a></dt>
-						<dd>(C++,WINAPI) : Game, Color Detection, Customization</dd>
-						<dd>Game that extends on the arcade game 'PuzzleBobble'</dd>
-						<dt><a href = 'https://github.com/yycho0108/PuzzleMaker' prev="">Puzzle Maker</a></dt>
-						<dd>(C++,WINAPI) : Image Analysis, Interaction</dd>
-						<dd>Software that creates a puzzle from an image</dd>
-						<dt><a href = 'https://github.com/yycho0108/ASCII_ART' prev="">ASCII Art Generator</a></dt>
-						<dd>(C++,WINAPI) : Image Analysis, Customization</dd>
-						<dd>Software that creates an ASCII-ART from an image</dd>
-						<dt><a href = 'https://github.com/yycho0108/OpenGL_Framework' prev="">OpenGL Framework</a></dt>
-						<dd>(C++,OpenGL) : Framework, OOP, Library</dd>
-						<dd>Simple framework that eases the use of OpenGL through abstraction</dd>
-						<dd></dd>
-					</dl>
-				</div>
-				<div class="preview">
-					<img id = "prev" src="" width="100%" height="100%"/>
-				</div>
+		<div class="banner">
+			<ul class="banner">
+				<li class="bannerItem">
+					<a href="index.html">Index</a>
+					<ul class="dropdown">
+						<li style="text-align: center;">HI</li>
+						<li style="text-align: center;">BI</li>
+						<li style="text-align: center;">KI</li>
+					</ul>
+				</li>
+				<li class="bannerItem"><a href="bio.html">Biography</a></li>
+				<li class="bannerItem"><a href="academics.html">Academics</a></li>
+				<li class="bannerItem"><a href="art.html">Art</a></li>
+				<li class="bannerItem"><a href="music.html">Music</a></li>
+				<li class="bannerItem"><a href="projects.html">Projects</a></li>
+			</ul>
+		</div>
+		<div class="content">
+			<p>[Content To Be Added];</p>
 			</div>
-		</div>
 		<div class="footer">
 			<ul>
+				<li><a href="https://github.com/yycho0108">Github Page</a></li>
 				<li>Current Address : 1000 Olin Way, Needham, MA</li>
 				<li>Telephone : (+1) 213-220-3492</li>
 			</ul>
