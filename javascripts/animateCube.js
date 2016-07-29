@@ -10,7 +10,7 @@ function initContext(){
     scene = new THREE.Scene();
 
     var l = new THREE.STLLoader();
-    l.load('./Object/ShadowCube_CHO_2.STL',function(g){
+    l.load('objects/ShadowCube_CHO_2.STL',function(g){
         var m = new THREE.MeshLambertMaterial({color: 0xAA5522});
         mesh = new THREE.Mesh(g,m);
 
