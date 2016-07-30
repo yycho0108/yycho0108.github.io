@@ -43,16 +43,11 @@
 				<div class="banner">
 					<ul class="banner">
 						<li class="bannerItem">
-							<a href="index.html">Index</a>
-							<ul class="dropdown">
-								<li style="text-align: center;">HI</li>
-								<li style="text-align: center;">BI</li>
-								<li style="text-align: center;">KI</li>
-							</ul>
+							<a class="page-link" href="index.html">Index</a>
 						</li>
 
 						{% for page in site.pages %}
-						{% if page.title and page.title != Index %}
+						{% if page.title and page.title != 'Index' %}
 						<li class="bannerItem">
 							<a class="page-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
 						</li>
