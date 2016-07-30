@@ -46,14 +46,16 @@
 							<a class="page-link" href="index.html">Index</a>
 						</li>
 						<li class="bannerItem">
-							<a class="page-link" href="gitprojects.html">Index</a>
+							<a class="page-link" href="github.html">Index</a>
 						</li>
 						{% for page in site.pages %}
-						{% if page.title and page.title != 'Index' %}
-						<li class="bannerItem">
-							<a class="page-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
-						</li>
-						{% endif %}
+							{% if page.title%}
+								{% if page.title != Index %}
+									<li class="bannerItem">
+										<a class="page-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
+									</li>
+								{% endif %}
+							{% endif %}
 						{% endfor %}
 					</ul>
 				</div>
