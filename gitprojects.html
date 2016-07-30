@@ -1,0 +1,25 @@
+---
+title : Github Projects
+layout : projects
+projects :
+ - link: AudioLocalizer
+   descr: Audio Localizer
+ - link: Lin1_Project
+   descr: 3D Reconstruction
+ - link: DigitParser
+   descr: Neural Network Digit Recognition
+ - link: OlinScheduler
+   descr: Olin Scheduler
+ - link: U_ML 
+   descr: Udacity Machine-Learning Nanodegree
+ - link: Composer
+   descr: Visual Composition
+ - link: Orchestrator
+   descr: Schedule Coordinator
+
+---
+<div class="container">
+   {% for project in page.projects %}
+   <a href= {{ project.link }}> {{ project.descr }} </a></br>
+   {% endfor %}
+</div>
