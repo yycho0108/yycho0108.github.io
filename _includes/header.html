@@ -42,32 +42,30 @@
 			</a>
 
 			<div class="trigger">
-				{% for page in site.pages %}
-					{% if page.title %}
-					<a class="page-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
-					{% endif %}
-				{% endfor %}
+				<div class="banner">
+					<ul class="banner">
+						<li class="bannerItem">
+							<a href="index.html">Index</a>
+							<ul class="dropdown">
+								<li style="text-align: center;">HI</li>
+								<li style="text-align: center;">BI</li>
+								<li style="text-align: center;">KI</li>
+							</ul>
+						</li>
+
+						{% for page in site.pages %}
+							{% if page.title %}
+							<li class="bannerItem"><a class="page-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
+							</li>
+							{% endif %}
+						{% endfor %}
+					</ul>
+				</div>
 			</div>
 		</nav>
 
 	</div>
 
-	<div class="banner">
-		<ul class="banner">
-			<li class="bannerItem">
-				<a href="index.html">Index</a>
-				<ul class="dropdown">
-					<li style="text-align: center;">HI</li>
-					<li style="text-align: center;">BI</li>
-					<li style="text-align: center;">KI</li>
-				</ul>
-			</li>
-			<li class="bannerItem"><a href="bio.html">Biography</a></li>
-			<li class="bannerItem"><a href="academics.html">Academics</a></li>
-			<li class="bannerItem"><a href="art.html">Art</a></li>
-			<li class="bannerItem"><a href="music.html">Music</a></li>
-			<li class="bannerItem"><a href="projects.html">Projects</a></li>
-		</ul>
-	</div>
+
 
 </header>
