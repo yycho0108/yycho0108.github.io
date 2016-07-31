@@ -37,8 +37,8 @@
 	position: fixed;
 	box-shadow: 0px 1px 50px;
 	z-index: 998;
-	top: 10px;
-	left: -10px;
+	top: 20px;
+	left: -170px;
 	padding-left: 15px;
 	font-size: 30px;
 	background-color: #111;
@@ -47,6 +47,11 @@
 	cursor: pointer;
 	padding-right: 30px;
 	border-radius: 10px;
+	transition: all 0.5s;
+}
+
+#open-sidenav:hover{
+	left: -10px;
 }
 
 @media screen and (max-height: 450px) {
