@@ -14,3 +14,25 @@
 <script src="javascripts/three.min.js"></script>
 <script src="javascripts/STLLoader.js"></script>
 <script src="javascripts/animateCube.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#open-sidenav").click(function(){
+		$("#sidenav").width(250);
+	})
+
+	$("#close-sidenav").click(function(){
+		$("#sidenav").width(0);
+	})
+
+	$(".dropdown").hide();
+	$(".bannerItem").hover(function(){
+		$(this).children(".dropdown").slideDown();
+	},function(){
+		$(this).children(".dropdown").slideUp();
+	});
+	initContext(); //for animating cube
+	animate();
+	})
+</script>
+
