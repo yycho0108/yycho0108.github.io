@@ -1,12 +1,26 @@
 div.Project {
-	display: inline-block;
-	width: 400px;
-	height: 400px;
-	margin: 20px;
-	padding: 20px;
-	border: 5px brown solid;
-	background-color: aliceblue;
+    display: inline-block;
+    width: 800px;
+    height: 500px;
+    margin: auto;
+    padding: 5%;
+    border: 15px outset;
+    background-color: #ccc7e4;
+    font-family: monospace;
+    border-color: darkblue;
+    border-radius: 50px;
+}
+
+.Project a {
+	text-decoration: none;
+}
+.Project a:hover{
+	color: cornflowerblue;
+}
+.Project h2 {
+	text-align: center;
 	font-family: monospace;
+	font-weight: bold;
 }
 
 div.Divider {
@@ -22,16 +36,19 @@ div.Intro {
 	clear: left;
 }
 div.Intro img{
-	width: 100%;
-	height: 80%;
+	max-width:100%;
+	max-height:100%;
+	border-radius:30px;
+	border-width:10px;
+	border-style:outset;
+	border-color:#69424a;
 }
 div.Intro a {
 	font-size: large;
-	text-decoration: none;
 }
 
 div.Description {
-	margin-left: 20px;
+	margin-left: 10%;
 	float: left;
 	width: 40%;
 	height: 90%;
