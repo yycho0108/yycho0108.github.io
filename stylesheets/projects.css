@@ -1,5 +1,6 @@
 div.Project {
     display: inline-block;
+	box-shadow: burlywood 1px 0px 50px;
     width: 800px;
     height: 500px;
     margin: auto;

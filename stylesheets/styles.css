@@ -584,17 +584,17 @@ body {
     font-weight: bold;
 }
 div.header {
+    box-shadow: bisque 1px 0px 50px inset;
     height: 10%;
     width: 100%;
+	border-radius: 10px;
     background-color: black;
-    border-width: 20px;
-    border-style: double;
-    border-color: white;
     font-weight: bold;
     font-size: 30px;
     color: white;
     padding: 20px;
     top: 0px;
+    margin: 20px;
 }
 div.content {
     float: top;
