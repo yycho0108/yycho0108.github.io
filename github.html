@@ -18,9 +18,18 @@ projects :
    descr: Rehearsal Schedule Coordination Application
 
 ---
-<div class="container">
-   {% for project in page.projects %}
-   <iframe src= {{ project.link }} style="width : 800px; height : 800px"/>
-   <a href= {{ project.link }}> {{ project.descr }} </a></br>
-   {% endfor %}
+<div class="slideshow-container">
+	{% for project in page.projects %}
+	<div class="mySlide fade Project">
+	   <iframe src= {{ project.link }} style="width : 800px; height : 800px"/>
+	</div>
+	{% endfor %}
+	<a class="prev" onclick="showSlide(slideIndex-1)">&#10094;</a>
+	<a class="next" onclick="showSlide(slideIndex+1)">&#10095;</a>
+</div>
+
+<div style="text-align:center">
+	{% for project in page.projects %}
+	<span class="dot" onclick="showSlide({{ forloop.index0 }})"></span> 
+	{% endfor %}
 </div>
