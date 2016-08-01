@@ -20,6 +20,7 @@ projects :
 ---
 <div class="container">
    {% for project in page.projects %}
+   <iframe src= {{ project.link }} style="width : 800px; height : 800px"/>
    <a href= {{ project.link }}> {{ project.descr }} </a></br>
    {% endfor %}
 </div>
