@@ -2,4 +2,42 @@
 title : Index
 layout : default
 ---
-Biographical Information will come soon!!
+
+<p>I'm a rising sophomore at Olin College.</p>
+<p>My core interests are Robotics -- all aspects of Robotics, encompassing software, electrical, and mechanical components, are fascinating to me.</p>
+<p>My experiences include Machine Learning, Computer Vision, Android Development, Robot Design/Fabrication, etc.</p>
+
+{% assign languages = "C|C++|Python|Javascript|HTML|Bash|Java|MATLAB" | split: "|" %}
+{% assign frameworks = "ROS|CUDA|MySQL|OpenGL|WebGL|MongoDB|Node/Express|QT|WINAPI|Android" | split: "|" %}
+{% assign fabrications = "3D Printing|Sheet Metal|Mill|Lathe" | split: "|" %}
+
+<ul>
+	<li>
+		<span>Languages</span>
+		<ul>
+			{% for language in languages %}
+			<li>{{ language }}</li>
+			{% endfor %}
+		</ul>
+	</li>
+
+	<li>
+		<span>Frameworks</span>
+		<ul>
+			{% for framework in frameworks %}
+			<li>{{ framework }}</li>
+			{% endfor %}
+		</ul>
+	
+	</li>
+	
+	<li>
+		<span>Fabrication</span>
+		<ul>
+			{% for fabrication in fabrications %}
+			<li>{{ fabrication }}</li>
+			{% endfor %}
+		</ul>
+	</li>
+
+</ul>
