@@ -2,25 +2,37 @@
 title : Github Projects
 layout : projects
 projects :
+ - link: 2048_AI 
+   title: 2048 A.I.
+   descr: 2048 AI emulating the Architecture of Google Deepmind
  - link: AudioLocalizer
+   title: Audio Localizer
    descr: Audio Localizer
  - link: Lin1_Project
+   title: 3D Reconstruction
    descr: 3D Reconstruction
  - link: DigitParser
+   title: Digit Parser
    descr: Neural Network Digit Recognition
  - link: U_ML 
+   title: Machine-Learning
    descr: Udacity Machine-Learning Nanodegree Program
  - link: OlinScheduler
-   descr: Olin Scheduler Application
+   title: Olin Scheduler 
+   descr: Graphical user interface and automated data collection for Scheduling
  - link: Composer
+   title: Composer
    descr: Visual Music Composition Application
  - link: Orchestrator
+   title: Orchestrator
    descr: Rehearsal Schedule Coordination Application
 
 ---
 <div class="slideshow-container">
 	{% for project in page.projects %}
 	<div class="mySlide fade Project">
+		<a href="github.com/yycho0108/"{{project.link}}>{{project.title}}</a>
+		<p> {{project.descr}} </a>
 		<iframe src= {{ project.link }}></iframe>
 	</div>
 	{% endfor %}
