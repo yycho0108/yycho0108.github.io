@@ -19,7 +19,7 @@ projects :
    descr: Udacity Machine-Learning Nanodegree Program
  - link: OlinScheduler
    title: Olin Scheduler 
-   descr: Graphical user interface and automated data collection for Scheduling
+   descr: Automated Data Collection and GUI for Easier Scheduling
  - link: Composer
    title: Composer
    descr: Visual Music Composition Application
@@ -32,7 +32,7 @@ projects :
 	{% for project in page.projects %}
 	<div class="mySlide fade Project">
 		<a href="github.com/yycho0108/"{{project.link}}>{{project.title}}</a>
-		<p> {{project.descr}} </a>
+		<p> {{project.descr}} </p>
 		<iframe src= {{ project.link }}></iframe>
 	</div>
 	{% endfor %}
