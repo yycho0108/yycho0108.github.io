@@ -31,9 +31,10 @@ projects :
 <div class="slideshow-container">
 	{% for project in page.projects %}
 	<div class="mySlide fade Project">
-		<a href="github.com/yycho0108/"{{project.link}}>{{project.title}}</a>
+		<a href={{project.link}}>{{project.title}}</a>
 		<p> {{project.descr}} </p>
 		<iframe src= {{ project.link }}></iframe>
+		<a href="https://github.com/yycho0108/{{project.link}}">@ Github Repo</a>
 	</div>
 	{% endfor %}
 	<a class="prev" onclick="showSlide(slideIndex-1)">&#10094;</a>
