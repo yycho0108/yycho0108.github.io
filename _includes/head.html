@@ -16,11 +16,12 @@
 <script src="javascripts/three.min.js"></script>
 <script src="javascripts/STLLoader.js"></script>
 <script src="javascripts/animateCube.js"></script>
-
+<script src="javascripts/svg.min.js"></script>
+<script src="javascripts/utils.js"></script>
 <script type="text/javascript">
 
 var slideIndex = 0;
-var maxSlides;
+var maxSlides = 1;
 
 function posMod(a,b){
 	return ((a%b)+b)%b
@@ -28,7 +29,6 @@ function posMod(a,b){
 function showSlide(n){
 	slideIndex = posMod(n,maxSlides);
 	n = slideIndex;
-	console.log(slideIndex);
 	$(".mySlide").css({display:"none"});
 	$(".dot").removeClass("active");
 	$(".mySlide").eq(n).css({display:"block"});
@@ -38,11 +38,11 @@ function showSlide(n){
 $(document).ready(function(){
 	$("#open-sidenav").click(function(){
 		$("#sidenav").width(250);
-	})
+	});
 
 	$("#close-sidenav").click(function(){
 		$("#sidenav").width(0);
-	})
+	});
 
 	maxSlides = $(".mySlide").length;
 
