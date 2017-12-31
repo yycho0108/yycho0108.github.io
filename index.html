@@ -18,69 +18,62 @@ layout : index
             });
         };
     }
-
-    var size = 784;
-    var draw = SVG('drawing').size(size, size);
-    function get_triangle(r, i, n, cx, cy, text, link){
+    function get_triangle(r, i, n, cx, cy, text, link, ts){
         var theta = 2*Math.PI / n;
         var angle = theta * i;
+        var angle_deg = rad2deg(angle);
+
         var col = hsv2rgb(i/n,1.0,1.0);
 
         var y = r * Math.cos(theta/2);
         var x = r * Math.sin(theta/2);
         var pts = '{0},{1} {2},{3} {4},{5}'.format(0,0, x,-y, -x,-y);
 
+        var grp = draw.group();
+        grp.linkTo(link);
+
+        // create ...
         var tri = draw.polygon(pts).fill({color:col}).stroke({color:'white', width:8});
         var txt = draw.text(text).fill({color:col});
         txt.font({
             family : 'Helvetica',
             size : 20,
             fill : col,
-            weight : 'bold',
-            shadow : '2px 2px 0px'
+            weight : 'bold'
         });
 
-        txt.after(tri);
-
+        // move to position
         var dr = r / 10.0;
         var dt = r / 10.0;
-
         tri.move(cx-x,cy-y)
-            .rotate(rad2deg(angle), cx, cy);
+            .rotate(angle_deg, cx, cy);
         txt.move(cx-x,cy-y-dt)
-            .rotate(rad2deg(angle), cx, cy);
+            .rotate(angle_deg, cx, cy);
 
-        tri.mouseover(function(){
+        // arrange
+        tri.toParent(grp);
+        txt.toParent(grp);
+        txt.after(tri);
+
+        grp.mouseover(function(){
             this.front();
-            txt.front();
-            txt.move(cx-x,cy-y-dt)
-                .rotate(rad2deg(angle), cx, cy)
-                .animate(100)
-                .move(cx-x, cy-y-dt-dr);
-
-            this.move(cx-x,cy-y)
-                .rotate(rad2deg(angle), cx, cy)
-                .animate(100)
-                .move(cx-x, cy-y-dr);
+            for(t in ts){
+                ts[t].attr({'fill-opacity':0.5});
+            }
+            this.attr({'fill-opacity':1.0});
+            var dx = dr*Math.sin(angle);
+            var dy = -dr*Math.cos(angle);
+            this.animate(500, '<>')
+                .move(dx,dy);
         }).mouseout(function(){
+            for(t in ts){
+                ts[t].attr({'fill-opacity':1.0});
+            }
             this.stop();
-            txt.stop();
             this.front();
-            txt.front();
-            this.move(cx-x, cy-y)
-                .rotate(rad2deg(angle), cx, cy);
-            txt.move(cx-x,cy-y-dt)
-                .rotate(rad2deg(angle), cx, cy);
+            this.move(0,0);
         });
-
-        var group = draw.group();
-        group.add(tri);
-        group.add(txt);
-        //txt.center(tri.cx(),tri.cy());
-
-        tri.linkTo(link);
-
-        return tri;
+        return grp;
     }
 
     function get_ring(txt, a1, a2, r, cx, cy){
@@ -111,43 +104,43 @@ layout : index
     }
 
     // draw subject-wise polygons ...
-    var subjects = ['Intro','Academics','Projects','Research','Personal'];
-    var links = ['./intro.html', './Academics', 'projects.html', 'research.html', 'personal.html'];
-    var cx = size/2;
-    var cy = size/2;
-    var r = size/3;
-    var n = subjects.length;
-    var ts = [];
-    for(i=0; i<n; ++i){
-        var t = get_triangle(r, i, n, cx, cy, subjects[i], links[0]);
-        ts.push(t);
-    }
+    //$(document).ready(function(){
+        var size = 784;
+        var draw = SVG('drawing').size(size, size);
+        var subjects = ['Intro','Academics','Projects','Research','Personal'];
+        var links = ['./intro', './Academics', 'projects', 'research', 'personal'];
+        var cx = size/2;
+        var cy = size/2;
+        var r = size/3;
+        var n = subjects.length;
 
-    // draw text ring ...
-    // var ring = draw.text(function(add){
-    //     add.tspan(
-    //         'YOONYOUNG CHO | ' +
-    //         'Robotics/Software Engineer | ' +
-    //         'Olin College of Engineering, Class of 2019 | ' +
-    //         'aaaaaaaaaaaaaaaaaa');
-    // });
-    // var path = ('M {0},{1} m 0,-{2} ' +
-    //     'a {2},{2} 0 0,1 {2},{2}' +
-    //     'a {2},{2} 0 0,1 0,-{3}')
-    //     .format(cx, cy, size * 2/5, size * 4/5);
-    // ring.path(path).font({
-    //     family : 'Helvetica',
-    //     size : 30,
-    //     fill : '#000000',
-    //     weight : 'bold',
-    //     shadow : '2px 2px 0px'
-    // });
-    get_ring(
-        'YOONYOUNG CHO | ' +
-        'Robotics/Software Engineer | ' +
-        'Olin College of Engineerinng, Class of 2019 | ' +
-        '213-220-3492 | ' +
-        'jchocholate@gmail.com | |',
-        deg2rad(90+30), deg2rad(90-30), size*2/5, cx, cy);
+        var ts = []
+        for(i=0; i<n; ++i){
+            var t = get_triangle(r, i, n, cx, cy, subjects[i], links[i], ts);
+            ts.push(t);
+        }
+
+        get_ring(
+            'YOONYOUNG CHO | ' +
+            'Robotics/Software Engineer | ' +
+            'Olin College of Engineerinng, Class of 2019 | ' +
+            '213-220-3492 | ' +
+            'jchocholate@gmail.com | |',
+            deg2rad(90+30), deg2rad(90-30), size*2/5, cx, cy);
+
+        var grad = draw.gradient('radial', function(stop){
+            stop.at(0, '#ffffff');
+            stop.at(0.7, '#ffffff');
+            stop.at(0.8, '#f0f0f0');
+            //stop.at(0.6, '#eeeeff');
+            //stop.at(0.7, '#ffffff');
+            //stop.at(0.8, '#ffeeff');
+            //stop.at(0.9, '#ffffff');
+            stop.at(1, '#ffffff');
+        });
+        var bk = draw.rect(size,size).radius(size).fill(grad);
+        bk.back();
+    //});
+
 
 </script>
