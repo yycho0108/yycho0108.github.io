@@ -1,5 +1,3 @@
-
-
 function deg2rad(deg){
     return deg * Math.PI / 180;
 }
@@ -30,4 +28,8 @@ function hsv2rgb(h, s, v) {
         g: Math.round(g * 255),
         b: Math.round(b * 255)
     };
+}
+
+function posMod(a,b){
+    return ((a%b)+b)%b
 }

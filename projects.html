@@ -77,7 +77,27 @@ projects:
       <p>Simple framework that eases the use of OpenGL through abstraction</p>
    tag: C++ | OpenGL
 ---
+<script type="text/javascript">
+    var anim = new DiceAnimation();
+
+    $(document).ready(function(){
+        var container = $("#slide-dice");
+
+        anim.initContext(container);
+        anim.animate();
+
+        $("#slide-random").click(function(){
+            console.log("click");
+        });
+    });
+</script>
+
 <div class="slideshow-container">
+    <!-- Dice -->
+    <div class="mySlide fade Project" id="slide-dice">
+
+    </div>
+
 	{% for project in page.projects %}
 	<div class="mySlide fade Project">
 		<a href={{project.link}} style="float: left; margin: auto; width: 100%; text-align: center;"><h2>{{ project.title }}</h2></a>
@@ -98,7 +118,8 @@ projects:
 </div>
 
 <div style="text-align:center">
+    <a href="#" id="slide-random"><i class="fa fa-random" aria-hidden="true"></i></a>
 	{% for project in page.projects %}
-	<span class="dot" onclick="showSlide({{ forloop.index0 }})"></span> 
+	<span class="dot" onclick="showSlide({{ forloop.index0 }})"></span>
 	{% endfor %}
 </div>

@@ -7,50 +7,17 @@
 
 <link rel="stylesheet" href="stylesheets/styles.css">
 <link rel="stylesheet" href="stylesheets/navigation.css">
-<link rel="stylesheet" href="stylesheets/fontawesome-all.min.css"
+<link rel="stylesheet" href="stylesheets/fontawesome-all.min.css">
 <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
 <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}">
 
 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
 <script src="javascripts/jquery-1.11.3.js"></script> <!-- for development -->
 <script src="javascripts/three.min.js"></script>
+<script src="javascripts/cannon.min.js"></script>
 <script src="javascripts/STLLoader.js"></script>
+<script src="javascripts/BufferSubdivisionModifier.js"></script>
 <script src="javascripts/animateCube.js"></script>
+<script src="javascripts/animateDice.js"></script>
 <script src="javascripts/svg.min.js"></script>
 <script src="javascripts/utils.js"></script>
-<script type="text/javascript">
-
-var slideIndex = 0;
-var maxSlides = 1;
-
-function posMod(a,b){
-	return ((a%b)+b)%b
-}
-function showSlide(n){
-	slideIndex = posMod(n,maxSlides);
-	n = slideIndex;
-	$(".mySlide").css({display:"none"});
-	$(".dot").removeClass("active");
-	$(".mySlide").eq(n).css({display:"block"});
-	$(".dot").eq(n).addClass("active");
-}
-
-$(document).ready(function(){
-	$("#open-sidenav").click(function(){
-		$("#sidenav").width(250);
-	});
-
-	$("#close-sidenav").click(function(){
-		$("#sidenav").width(0);
-	});
-
-	maxSlides = $(".mySlide").length;
-
-	showSlide(slideIndex);
-
-	initContext(); //for animating cube
-	animate();
-	})
-
-</script>
-

@@ -41,8 +41,8 @@ THREE.STLLoader.prototype = {
 
 		var scope = this;
 
-		var loader = new THREE.XHRLoader( scope.manager );
-		loader.setCrossOrigin( this.crossOrigin );
+		var loader = new THREE.FileLoader( scope.manager );
+		//loader.setCrossOrigin( this.crossOrigin );
 		loader.setResponseType( 'arraybuffer' );
 		loader.load( url, function ( text ) {
 
@@ -52,11 +52,9 @@ THREE.STLLoader.prototype = {
 
 	},
 
-	setCrossOrigin: function ( value ) {
-
-		this.crossOrigin = value;
-
-	},
+	//setCrossOrigin: function ( value ) {
+	//	this.crossOrigin = value;
+	//},
 
 	parse: function ( data ) {
 
