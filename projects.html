@@ -102,7 +102,7 @@ projects:
     });
 </script>
 
-<div style="margin: 0 auto; width:200px; text-align:center; font-weight: bold">
+<div style="margin: 0 auto; width:200px; text-align:center; font-weight: bold;">
     <i class="fa fa-tv" aria-hidden="true"></i>
     Projects Browser!
 </div>
@@ -116,7 +116,7 @@ projects:
     </div>
 
 	{% for project in page.projects %}
-	<div class="mySlide fade Project">
+	<div class="mySlide fade Project" style="padding:4%">
 		<a href={{project.link}} style="float: left; margin: auto; width: 100%; text-align: center;"><h2>{{ project.title }}</h2></a>
 		<div class="Intro">
 			<img src={{project.image}}>
