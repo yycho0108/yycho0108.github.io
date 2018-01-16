@@ -1,0 +1,81 @@
+{% assign pages = site.pages | map : "title" %}
+
+<script type="text/javascript">
+
+    var pages = ["{{ pages | join: '", "'}}"];
+
+    var slideIndex = 0;
+    var maxSlides = 1;
+
+    function showSlide(n) {
+        slideIndex = posMod(n, maxSlides);
+        n = slideIndex;
+        $(".mySlide").css({display: "none"});
+        $(".dot").removeClass("active");
+        $(".mySlide").eq(n).css({display: "block"});
+        $(".dot").eq(n).addClass("active");
+    }
+
+    $(document).ready(function () {
+        $("#open-sidenav").click(function () {
+            $("#sidenav").width(250);
+        });
+
+        $("#close-sidenav").click(function () {
+            $("#sidenav").width(0);
+        });
+
+        $("#topnav-search").focus(function(){
+            $(this).siblings(".search-autocomplete").show();
+        });
+
+        $(".search-container").focusout(function(){
+            $(this).children(".search-autocomplete").delay(100).hide(0);
+        });
+
+        $("#topnav-search").on('focus keyup paste', function(){
+            var s = $(this).val().toLowerCase();
+            var c = pages.filter(function(p){
+                return p.toLowerCase().includes(s);
+            });
+            $(".search-autocomplete > a").each(function(){
+                var t = $(this).text();
+                if(c.indexOf(t) > -1){
+                    $(this).css({'display' : 'block'});
+                }else{
+                    $(this).css({'display' : 'none'});
+                }
+            });
+
+        });
+
+        maxSlides = $(".mySlide").length;
+        showSlide(slideIndex);
+        //initContext(); //for animating cube
+        //animate();
+    });
+</script>
+
+<div class="topnav-wrap" style="position:relative;">
+
+    <!-- Some Representative Pages -->
+    <div class="topnav" style="position:absolute;">
+        <a class="nav-active" href="index"><i class="fa fa-home" aria-hidden="true"></i></a>
+        <a href="intro">Intro</a>
+        <a href="projects">Projects</a>
+        <a href="academics">Academics</a>
+        <a href="personal">Personal</a>
+        <a href="research">Research</a>
+    </div>
+
+    <div class="search-container" style="position:relative;">
+        <input type="text" placeholder="Search ..." style="" id="topnav-search" value>
+        <div class="search-autocomplete">
+            {% for page in site.pages %}
+                {% if page.title %}
+                    <a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>

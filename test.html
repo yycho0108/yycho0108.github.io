@@ -1,5 +1,6 @@
 ---
 title : Test
+layout : test
 ---
 <!DOCTYPE html>
 <html>
@@ -7,10 +8,19 @@ title : Test
 		<meta charset="utf-8">
 		<title>TestPage</title>
 		<link rel="stylesheet" href="stylesheets/styles.css">
+		<link rel="stylesheet" href="stylesheets/topnav.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	</head>
 
 	<body>
+	<div class="topnav">
+		<a class="nav-active" href="index"><i class="fa fa-home" aria-hidden="true"></i></a>
+		<a href="intro">Intro</a>
+		<a href="projects">Projects</a>
+		<a href="academics">Academics</a>
+		<a href="personal">Personal</a>
+		<a href="research">Research</a>
+	</div>
 		<script type="text/javascript">
 			$(document).ready(function(){
 				$("a").hover(function(){ // mouseIn
