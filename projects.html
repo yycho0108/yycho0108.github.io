@@ -1,81 +1,6 @@
 ---
 title : Projects
 layout : projects
-projects:
- - title: RFID-Enabled Fish Tracking
-   link : https://github.com/BluetoothFishTagging
-   image: images/FishTags.jpg
-   description: |
-      <p>Mobile App Development to facilitate reporting fish-tags for Marine-Biologists</p>
-      <p>Extensive exploration of modern technologies such as RFID and bluetooth.</p>
-   tag: Android | Express | MySQL | AWS
-
- - title: Udacity Machine-Learning Nanodegree
-   image: images/Gaussian.png
-   description: |
-      <p>Passionate Pursuit for Machine Learning and A.I.</p>
-      <a href="https://github.com/yycho0108/U_ML">Udacity Nanodegree Program</a>;<br/>
-      <a href="https://github.com/yycho0108/GaussianNaiveBayes">Gaussian Naive Bayes Classifier;</a><br/>
-      <a href="https://github.com/yycho0108/QLearningFramework_2">Tic-Tac-Toe A.I.</a>;<br/>
-      <a href="https://github.com/yycho0108/DigitParser">Digit Parser</a>;
-   tag: C++ | Python | MATLAB
-
- - title: Olin Scheduler
-   link: 'https://github.com/yycho0108/OlinSchedulerPy'
-   image: images/OlinScheduler.png
-   description: |
-      <p>Graphic UI, Web Scraping</p>
-      <p>Software for Visualization of Olin Courses.</p>
-   tag: PyQt4
-
- - title: Olin Robotic Sailing
-   link: https://github.com/olin-robotic-sailing/ors-git-repo
-   image: images/ORS.png
-   description: |
-      <p>Making an Autonomous Sailboat</p>
-      <p>GUI Development, Soft Limit-Switch Implementation</p>
-      <a href="http://www.olinroboticsailing.com/">Website</a>
-   tag: ROS | PyQt4 | Python
-
- - title: Orchestrator
-   link: 'https://github.com/yycho0108/Orchestrator'
-   image: "images/Orchestrator.png"
-   description: |
-      <p>Utility Software, Algorithms</p>
-      <p>Application of the <a href="https://en.wikipedia.org/wiki/Travelling_salesman_problem"> TSP </a> to scheduling effective rehearsals</p>
-   tag: C++ | Qt
-
- - title: FireBubble
-   link: 'https://github.com/yycho0108/FireBubble'
-   image: "images/FireBubble.png"
-   description: |
-      <p>Game Development, ColorSpace, Customization</p>
-      <p>Extending on the arcade game 'PuzzleBobble'</p>
-   tag: C++ | WINAPI
-
- - title: ASCII-ART
-   link: 'https://github.com/yycho0108/ASCII_ART'
-   image: "images/ASCII_ART.png"
-   description: |
-      <p>image Analysis, Customization</p>
-      <p>Software that creates an ASCII-ART from an image</p>
-   tag: C++ | WINAPI
-
- - title: Puzzle Maker
-   link: 'https://github.com/yycho0108/PuzzleMaker'
-   image: images/default-placeholder.png
-   description: |
-      <p>image Analysis, Interaction</p>
-      <p>Software that creates a puzzle from an image</p>
-   tag: C++ | WINAPI
-
- - title: OpenGL Framework
-   link: 'https://github.com/yycho0108/OpenGL_Framework'
-   image: "images/OpenGLFramework.png"
-   description: |
-      <p>Framework, OOP, Library</p>
-      <p>Simple framework that eases the use of OpenGL through abstraction</p>
-   tag: C++ | OpenGL
 ---
 <script type="text/javascript">
     var anim = new DiceAnimation();
@@ -115,7 +40,7 @@ projects:
         </div>
     </div>
 
-	{% for project in page.projects %}
+	{% for project in site.data.projects %}
 	<div class="mySlide fade Project" style="padding:4%">
 		<a href={{project.link}} style="float: left; margin: auto; width: 100%; text-align: center;"><h2>{{ project.title }}</h2></a>
 		<div class="Intro">
@@ -136,7 +61,7 @@ projects:
 
 <div style="text-align:center; position: relative; width:99%; margin: 10px auto;">
     <a href="#" id="slide-random" onclick="showSlide(0)"><i class="fa fa-random" aria-hidden="true"><span class="dot" style="display:none"></span></i></a>
-	{% for project in page.projects %}
+	{% for project in site.data.projects %}
 	<span class="dot" onclick="showSlide({{ forloop.index }})"></span>
 	{% endfor %}
 </div>

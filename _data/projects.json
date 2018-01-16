@@ -1,0 +1,64 @@
+[
+  {
+    "title": "RFID-Enabled Fish Tracking",
+    "link": "https://github.com/BluetoothFishTagging",
+    "image": "images/FishTags.jpg",
+    "description": "<p>Mobile App Development to facilitate reporting fish-tags for Marine-Biologists</p>\n<p>Extensive exploration of modern technologies such as RFID and bluetooth.</p>\n",
+    "tag": "Android | Express | MySQL | AWS"
+  },
+  {
+    "title": "Udacity Machine-Learning Nanodegree",
+    "image": "images/Gaussian.png",
+    "description": "<p>Passionate Pursuit for Machine Learning and A.I.</p>\n<a href=\"https://github.com/yycho0108/U_ML\">Udacity Nanodegree Program</a>;<br/>\n<a href=\"https://github.com/yycho0108/GaussianNaiveBayes\">Gaussian Naive Bayes Classifier;</a><br/>\n<a href=\"https://github.com/yycho0108/QLearningFramework_2\">Tic-Tac-Toe A.I.</a>;<br/>\n<a href=\"https://github.com/yycho0108/DigitParser\">Digit Parser</a>;\n",
+    "tag": "C++ | Python | MATLAB"
+  },
+  {
+    "title": "Olin Scheduler",
+    "link": "https://github.com/yycho0108/OlinSchedulerPy",
+    "image": "images/OlinScheduler.png",
+    "description": "<p>Graphic UI, Web Scraping</p>\n<p>Software for Visualization of Olin Courses.</p>\n",
+    "tag": "PyQt4"
+  },
+  {
+    "title": "Olin Robotic Sailing",
+    "link": "https://github.com/olin-robotic-sailing/ors-git-repo",
+    "image": "images/ORS.png",
+    "description": "<p>Making an Autonomous Sailboat</p>\n<p>GUI Development, Soft Limit-Switch Implementation</p>\n<a href=\"http://www.olinroboticsailing.com/\">Website</a>\n",
+    "tag": "ROS | PyQt4 | Python"
+  },
+  {
+    "title": "Orchestrator",
+    "link": "https://github.com/yycho0108/Orchestrator",
+    "image": "images/Orchestrator.png",
+    "description": "<p>Utility Software, Algorithms</p>\n<p>Application of the <a href=\"https://en.wikipedia.org/wiki/Travelling_salesman_problem\"> TSP </a> to scheduling effective rehearsals</p>\n",
+    "tag": "C++ | Qt"
+  },
+  {
+    "title": "FireBubble",
+    "link": "https://github.com/yycho0108/FireBubble",
+    "image": "images/FireBubble.png",
+    "description": "<p>Game Development, ColorSpace, Customization</p>\n<p>Extending on the arcade game 'PuzzleBobble'</p>\n",
+    "tag": "C++ | WINAPI"
+  },
+  {
+    "title": "ASCII-ART",
+    "link": "https://github.com/yycho0108/ASCII_ART",
+    "image": "images/ASCII_ART.png",
+    "description": "<p>image Analysis, Customization</p>\n<p>Software that creates an ASCII-ART from an image</p>\n",
+    "tag": "C++ | WINAPI"
+  },
+  {
+    "title": "Puzzle Maker",
+    "link": "https://github.com/yycho0108/PuzzleMaker",
+    "image": "images/default-placeholder.png",
+    "description": "<p>image Analysis, Interaction</p>\n<p>Software that creates a puzzle from an image</p>\n",
+    "tag": "C++ | WINAPI"
+  },
+  {
+    "title": "OpenGL Framework",
+    "link": "https://github.com/yycho0108/OpenGL_Framework",
+    "image": "images/OpenGLFramework.png",
+    "description": "<p>Framework, OOP, Library</p>\n<p>Simple framework that eases the use of OpenGL through abstraction</p>\n",
+    "tag": "C++ | OpenGL"
+  }
+]

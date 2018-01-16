@@ -1,0 +1,74 @@
+[
+  {
+    "link": "ArduinoRemoteCar",
+    "title": "Arduino Remote Car",
+    "descr": "Control Arduino Car Remotely Through ROS",
+    "tag": "Arduino | ROS"
+  },
+  {
+    "link": "2048_AI",
+    "title": "2048 A.I.",
+    "descr": "2048 AI emulating the Architecture of Google Deepmind",
+    "tag": "Tensorflow | ML"
+  },
+  {
+    "link": "RubiksCube",
+    "title": "Rubiks Cube",
+    "descr": "Interactive Rubiks Cube with THREE.js",
+    "tag": "THREE.js | Graphics"
+  },
+  {
+    "link": "ConvNet",
+    "title": "Convolutional Neural Network",
+    "descr": "GPU-accelerated Convolutional Neural Network with CUDA",
+    "tag": "CUDA | GPGPU | ML"
+  },
+  {
+    "link": "TunaCounter",
+    "title": "Tuna Counter",
+    "descr": "Automated Tuna Counting with OpenCV",
+    "tag": "OpenCV | C++ | Python"
+  },
+  {
+    "link": "Orchestrator",
+    "title": "Orchestrator",
+    "descr": "Rehearsal Schedule Coordination Application",
+    "tag": "C++ | GUI | Algorithm"
+  },
+  {
+    "link": "AudioLocalizer",
+    "title": "Audio Localizer",
+    "descr": "Audio Localizer",
+    "tag": "Arduino | Signals"
+  },
+  {
+    "link": "Lin1_Project",
+    "title": "3D Reconstruction",
+    "descr": "3D Reconstruction",
+    "tag": "Python | Math"
+  },
+  {
+    "link": "DigitParser",
+    "title": "Digit Parser",
+    "descr": "Neural Network Digit Recognition",
+    "tag": "C++ | ML"
+  },
+  {
+    "link": "U_ML",
+    "title": "Machine-Learning",
+    "descr": "Udacity Machine-Learning Nanodegree Program",
+    "tag": "Python | ML"
+  },
+  {
+    "link": "OlinScheduler",
+    "title": "Olin Scheduler",
+    "descr": "Automated Data Collection and GUI for Easier Scheduling",
+    "tag": "Python | GUI | Crawling"
+  },
+  {
+    "link": "Composer",
+    "title": "Composer",
+    "descr": "Visual Music Composition Application",
+    "tag": "Python | Math"
+  }
+]
