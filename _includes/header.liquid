@@ -17,6 +17,11 @@
     }
 
     $(document).ready(function () {
+
+        $(".topnav-wrap").css({
+            'height' : $(".topnav").css('height')
+        });
+
         $("#open-sidenav").click(function () {
             $("#sidenav").width(250);
         });
