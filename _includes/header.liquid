@@ -1,8 +1,12 @@
 {% assign pages = site.pages | map : "title" %}
+{% assign gh_pages = site.data.gh_projects | map : "title" %}
 
 <script type="text/javascript">
 
     var pages = ["{{ pages | join: '", "'}}"];
+    var gh_pages = ["{{ gh_pages | join: '", "'}}"];
+    gh_pages = gh_pages.map(function(s){return "[GH]"+s});
+    pages = pages.concat(gh_pages);
 
     var slideIndex = 0;
     var maxSlides = 1;
@@ -80,6 +84,10 @@
                 {% if page.title %}
                     <a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
                 {% endif %}
+            {% endfor %}
+
+            {% for page in site.data.gh_projects %}
+                <a href="{{ page.link | prepend: site.baseurl }}">{{ page.title | prepend: "[GH]" }}</a>
             {% endfor %}
         </div>
     </div>
