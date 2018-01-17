@@ -182,6 +182,9 @@ function DiceAnimation() {
 
     this.scene.add(this.dice);
 
+    this.t0 = new Date().getTime();
+    this.done = true;
+
     //camera = new THREE.PerspectiveCamera(35,window.innerWidth/window.innerHeight,1,10000);
     //camera = new THREE.OrthographicCamera(-25, 25, 25, -25, 1, 100)
     //camera.position.set(0, 0, -40);
@@ -216,9 +219,13 @@ DiceAnimation.prototype.initContext = function (container) {
 
     this.container.get(0).appendChild(this.renderer.domElement);
 };
-var dt = 0.01;
 
 DiceAnimation.prototype.render = function () {
+
+    var now = new Date().getTime();
+    var dt = 0.5 * (now - this.t0) / 1000.0; // .5x real time
+    this.t0 = now;
+
 
     //this.dice.position.add(new THREE.Vector3(0, 0.01, 0.01));
     //this.dice.position.x = 2.5 * Math.sin(th);
@@ -229,11 +236,17 @@ DiceAnimation.prototype.render = function () {
 
     this.world.step(dt);
 
-    if(!this.done && this.c_dice.velocity.length() < 0.005){
-        // indicate done
-        this.done = true;
-        if(this.cb){
-            this.cb();
+    if(!this.done){
+        var v_check = (this.c_dice.velocity.length() < 5e-3);
+        var w_check = (this.c_dice.angularVelocity.length() < 1e-3);
+        var p_check = (Math.abs(this.c_dice.position.z - 0.5) < 1e-3);
+
+        if(v_check && w_check && p_check){
+            // indicate done
+            this.done = true;
+            if(this.cb){
+                this.cb();
+            }
         }
     }
 
@@ -303,7 +316,7 @@ DiceAnimation.prototype.throw = function(cb) {
     this.c_dice.position.set(0, 0, 2.0);
     this.c_dice.velocity.set(0, 0, 5.0);
 
-    var s = 64;
+    var s = 32;
     var wx = s * THREE.Math.randFloat(-1, 1);
     var wy = s * THREE.Math.randFloat(-1, 1);
     var wz = s * THREE.Math.randFloat(-1, 1);
