@@ -644,3 +644,26 @@ div.preview {
     z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
     cursor: pointer; /* Add a pointer on hover */
 }
+
+.browser-header{
+    position: relative;
+    font-size: 30px;
+    z-index: 1;
+    overflow: hidden;
+    text-align: center;
+}
+/*
+.browser-header:before, .browser-header:after {
+    position: absolute;
+    top: 51%;
+    overflow: hidden;
+    width: 50%;
+    height: 5px;
+    content: '\a0';
+    background-color: grey;
+}
+.browser-header:before {
+    margin-left: -50%;
+    text-align: right;
+}
+*/
