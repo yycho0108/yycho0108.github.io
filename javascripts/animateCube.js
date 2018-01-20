@@ -6,7 +6,7 @@ var scene, camera, renderer, mesh=null;
 function initContext() {
     var container = $("#profile").get(0);
     //camera = new THREE.PerspectiveCamera(35,window.innerWidth/window.innerHeight,1,10000);
-    camera = new THREE.OrthographicCamera(-25, 25, 25, -25, 1, 100)
+    camera = new THREE.OrthographicCamera(-25, 25, 25, -25, 1, 100);
     camera.position.set(0, 0, -40);
     scene = new THREE.Scene();
 

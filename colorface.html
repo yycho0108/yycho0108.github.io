@@ -1,0 +1,350 @@
+---
+title : ColorFace
+layout : default
+---
+
+<script type="text/javascript">
+
+    function buildEdgeIndex(faces) {
+
+        var key, keys = ['a', 'b', 'c'];
+        var edge = [0, 0], edges = {}, edge1, edge2;
+
+        for (var i = 0, l = faces.length; i < l; i++) {
+            var face = faces[i];
+
+            for (var j = 0; j < 3; j++) {
+
+                edge1 = face[keys[j]];
+                edge2 = face[keys[(j + 1) % 3]];
+                edge[0] = Math.min(edge1, edge2);
+                edge[1] = Math.max(edge1, edge2);
+
+                key = edge[0] + ',' + edge[1];
+
+                if (edges[key] === undefined) {
+                    edges[key] = {index1: edge[0], index2: edge[1], face1: i, face2: undefined};
+                } else {
+                    edges[key].face2 = i;
+                }
+            }
+        }
+
+        // edges["v_mn, v_mx"] = {...}
+        return edges;
+    }
+
+    function buildFaceIndex(faces) {
+        var edges = buildEdgeIndex(faces);
+        var nIdx = [];
+        // idx[i] = [ ... neighboring faces ...]
+        for (var k in edges) {
+
+            var f1 = edges[k].face1;
+            var f2 = edges[k].face2;
+
+            if (nIdx[f1] === undefined) {
+                nIdx[f1] = [f2];
+            } else {
+                nIdx[f1].push(f2);
+            }
+
+            if (nIdx[f2] === undefined) {
+                nIdx[f2] = [f1];
+            } else {
+                nIdx[f2].push(f1);
+            }
+        }
+        return nIdx;
+    }
+
+    function ColorFace() {
+        // boilerplate setup
+        this.scene = new THREE.Scene();
+        //this.projector = new THREE.Projector();
+
+        this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 50);
+        this.camera.up = new THREE.Vector3(0, 0, 1);
+        this.camera.position.set(5, 0, 3);
+        this.camera.lookAt(this.scene.position);
+
+        //this.camera.quaternion.setFromAxisAngle(new THREE.Vector3(0,1,0), Math.PI/2);
+        this.scene.add(this.camera);
+
+        // lights
+        var dLight = new THREE.DirectionalLight(0xFFFFFF, 0.75, 100);
+        dLight.position.set(-2.5, 5, 10);
+        this.scene.add(dLight);
+
+        var aLight = new THREE.AmbientLight(0x666666);
+        this.scene.add(aLight);
+
+        var pLight = new THREE.PointLight(0x0088FF, 0.75, 20);
+        pLight.position.set(4, 4, 4.0);
+        this.scene.add(pLight);
+
+        //var helper = new THREE.CameraHelper( pLight.shadow.camera );
+        //this.scene.add( helper );
+
+        var fog = new THREE.FogExp2(0x220044, 0.05);
+        this.scene.background = new THREE.Color(0x220044);
+        this.scene.fog = fog;
+
+        // objects
+        // Floor
+        var geom = new THREE.PlaneGeometry(100, 100, 1, 1);
+        var txt = new THREE.TextureLoader().load("images/chess.png");
+        txt.wrapS = THREE.RepeatWrapping;
+        txt.wrapT = THREE.RepeatWrapping;
+        txt.repeat.set(32, 32);
+        var mat = new THREE.MeshPhongMaterial({
+            color: 0xCCCCCC,
+            map: txt
+        });
+        var mesh = new THREE.Mesh(geom, mat);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        this.scene.add(mesh);
+
+        this.object = null;
+        this.fIdx = null;
+
+        var self = this;
+
+
+        var l = new THREE.STLLoader();
+        l.load('objects/ShadowCube_CHO_2.STL', function (g) {
+
+            //g = new THREE.SphereGeometry(5,32,32);
+            g = new THREE.Geometry().fromBufferGeometry(g);
+            g.mergeVertices();
+            g.computeFaceNormals();
+
+            var m = new THREE.MeshToonMaterial({
+                //color: 0xAA5522,
+                vertexColors: THREE.FaceColors,
+                flatShading: true
+            });
+
+            for (var i = 0; i < g.faces.length; ++i) {
+                g.faces[i].color.setHex(0xAA5522);
+            }
+            mesh = new THREE.Mesh(g, m);
+            var box = new THREE.Box3().setFromObject(mesh);
+            var size = box.getSize();
+            var s = 1.0 / Math.min(size.x, size.y, size.z);
+            mesh.scale.set(s, s, s); //shortest dimension will be 1
+
+            //mesh.scale.set(1 / 40, 1 / 40, 1 / 40);
+            //mesh.position.set(0,0,2);
+            //console.log(mesh);
+
+            self.scene.add(mesh);
+
+            self.object = mesh;
+            self.fIdx = buildFaceIndex(mesh.geometry.faces);
+
+            //var vnh = new THREE.VertexNormalsHelper(mesh, 1, 0xff0000 );
+            //self.scene.add( vnh );
+
+            /*
+            for(var i=0; i<3; ++i){
+                mesh.geometry.faces[0].color.setHex(0xFFFFFF);
+                mesh.geometry.faces[self.fIdx[0][0][i]].color.setHex(0x000000);
+            }
+            */
+
+            //console.log(mesh.geometry.faces);
+            //console.log(self.fIdx);
+        });
+        //this.scene.add(this.dice);
+    }
+
+    ColorFace.prototype.initContext = function (container) {
+        this.container = container;
+        var h = this.container.height();
+        var w = this.container.width();
+        //renderer
+        this.renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
+        this.renderer.shadowMap.enabled = true;
+        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap
+
+        //renderer.setClearColor()
+        this.renderer.setSize(w, h);
+
+        this.camera.aspect = w / h;
+        this.camera.updateProjectionMatrix();
+
+        $(this.renderer.domElement).css({
+            'position': 'relative',
+            'left': '50%',
+            'top': '50%',
+            'margin-left': function () {
+                return -$(this).outerWidth() / 2
+            },
+            'margin-top': function () {
+                return -$(this).outerHeight() / 2
+            }
+        });
+
+        this.container.get(0).appendChild(this.renderer.domElement);
+
+        var self = this;
+        var e = $(this.renderer.domElement);
+
+        this.ctrl = new THREE.OrbitControls(this.camera, this.renderer.domElement);
+        this.ctrl.update();
+
+        $(container)
+            .mousedown(function (event) {
+                $(this).data("p0", {x: event.pageX, y: event.pageY});
+            })
+            .mousemove(function (event) {
+                // reset
+                $(this).data("p0", {x: -1, y: -1});
+            })
+            .mouseup(function (event) {
+                var p0 = $(this).data("p0") || {x: 0, y: 0};
+                var x = event.pageX;
+                var y = event.pageY;
+
+                if (x !== p0.x || y !== p0.y)
+                    return;
+
+                // translate ...
+                x = x - e.offset().left;
+                y = y - e.offset().top;
+                // scale ...
+                x = (x / e.width()) * 2 - 1;
+                y = -(y / e.height()) * 2 + 1;
+
+                // find intersections
+                var vector = new THREE.Vector3(x, y, 1);
+                vector.unproject(self.camera);
+                var ray = new THREE.Raycaster(self.camera.position, vector.sub(self.camera.position).normalize());
+                var intersects = ray.intersectObjects([self.object]);
+
+                // if there is one (or more) intersections
+                if (intersects.length > 0) {
+                    var i = self.object.geometry.faces.indexOf(intersects[0].face);
+                    var res = [];
+
+                    var tol = $("#tol").val();
+                    tol = deg2rad($("#tol").val());
+                    //tol = Math.cos(tol);
+
+                    var col = new THREE.Color($("#col").val());
+
+                    console.log(event.which);
+                    switch(event.which){
+                        case 1:
+                            // build full connectivity, left mouse
+                            connectivity(i, self.fIdx, self.object.geometry.faces, [], res, tol);
+                            break;
+                        case 3:
+                            // single-face only, right mouse
+                            res = [i];
+                            break;
+                        default:
+                            res = [i];
+                            break;
+                    }
+
+                    for (var j = 0; j < res.length; ++j) {
+                        intersects[0].object.geometry.faces[res[j]].color.copy(col);
+                    }
+                    intersects[0].object.geometry.colorsNeedUpdate = true;
+
+                    var cols = self.object.geometry.faces.map(function (x) {
+                        return x.color.getHexString();
+                    });
+                    $("#cres").val(cols.toString());
+                    // change the color of the closest face.
+                    //intersects[0].face.color.setRGB(0.8 * Math.random() + 0.2, 0, 0);
+                    //intersects[0].object.geometry.colorsNeedUpdate = true;
+                }
+            });
+    };
+
+    ColorFace.prototype.render = function () {
+        //this.ctrl.update();
+        this.renderer.render(this.scene, this.camera);
+        this.renderer.setClearColor(0x000000, 1);
+    };
+
+    ColorFace.prototype.animate = function () {
+        var self = this;
+        requestAnimationFrame(function () {
+            self.animate();
+        });
+        this.render();
+    };
+
+    function connectivity(face, fidx, ref, vis, res, tol) {
+        // face : current reference face index
+        // vidx = buildFaceIndex(faces)
+        // vis : already visited face indices
+
+        var src = [face];
+        tol = tol || deg2rad(10);
+
+        var i, k;
+        var n, n2;
+
+        while (src.length > 0) {
+            var nxt = [];
+            var m = src.length;
+            for (i = 0; i < m; ++i) {
+                face = src[i];
+                res.push(face);
+                vis.push(face);
+
+                n = ref[face].normal;
+
+                for (k in fidx[face]) {
+                    var f2 = fidx[face][k];
+                    if (vis.indexOf(f2) < 0) { //not in vis
+                        vis.push(f2); // now visited ...
+                        var n2 = ref[f2].normal; // neighboring face
+                        //console.log(n.angleTo(n2));
+                        if (n.angleTo(n2) < tol) { // "well-connected"
+                            nxt.push(f2);
+                        }
+                    }
+                }
+            }
+            src = nxt;
+        }
+
+    }
+
+    colorface = new ColorFace();
+
+    $(document).ready(function () {
+        colorface.initContext($("#canvas"));
+        colorface.animate();
+    });
+
+</script>
+
+<pre>
+    Select Face Color and Tolerance from the form above,
+    and then click to color the face!
+    List of Colors corresponding to each face are printed in the textarea below.
+
+    <strong>[L-Click]</strong> : Select Contiguous Region
+    <strong>[R-Click]</strong> : Select Single Face
+</pre>
+
+<div>
+    Face Color
+    <input type="color" id="col">
+    Tolerance (Deg)
+    <input type="number" id="tol" name="tol" min="0" max="360" value="12">
+</div>
+
+<div id="canvas" style="width:800px; height:800px">
+</div>
+
+<textarea id="cres" rows="4" cols="99">
+</textarea>

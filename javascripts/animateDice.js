@@ -316,7 +316,7 @@ DiceAnimation.prototype.throw = function(cb) {
     this.c_dice.position.set(0, 0, 2.0);
     this.c_dice.velocity.set(0, 0, 5.0);
 
-    var s = 32;
+    var s = 64;
     var wx = s * THREE.Math.randFloat(-1, 1);
     var wy = s * THREE.Math.randFloat(-1, 1);
     var wz = s * THREE.Math.randFloat(-1, 1);
