@@ -2,8 +2,14 @@
 title : Projects
 layout : projects
 ---
+
+<!-- TODO :
+Choose Between Layouts (GRID | Slideshow)
+Manage **Github Projects** Here as Well (merge github.html)
+-->
+
 <script type="text/javascript">
-    var anim = new DiceAnimation();
+    var dice = new DiceAnimation();
 
     $(document).ready(function(){
 
@@ -12,13 +18,12 @@ layout : projects
         });
 
         var container = $("#slide-dice");
-        anim.initContext(container);
-        anim.initCannon();
-        //anim.throw(function(){});
-        anim.animate();
+        dice.initContext(container);
+        dice.initCannon();
+        dice.animate();
 
         $("#slide-dice").click(function(){
-            anim.throw(function(){
+            dice.throw(function(){
                 var n = Math.floor(Math.random() * maxSlides);
                 showSlide(n);
             });

@@ -4,7 +4,7 @@ layout : default
 ---
 
 <script type="text/javascript">
-
+    
     function logslider(x, inv) {
         inv = inv || false;
 
@@ -100,20 +100,23 @@ layout : default
         // lights
         var dLight = new THREE.DirectionalLight(0xFFFFFF, 0.75, 100);
         dLight.position.set(-2.5, 5, 10);
+        addShadowProperties(dLight, 20, 0.5, 500, 0.5);
         this.scene.add(dLight);
 
         var aLight = new THREE.AmbientLight(0x666666);
+
         this.scene.add(aLight);
 
         var pLight = new THREE.PointLight(0x0088FF, 0.75, 20);
         pLight.position.set(4, 4, 4.0);
+        addShadowProperties(pLight, 8, 0.5, 500, 0.1);
         this.scene.add(pLight);
 
-        //var helper = new THREE.CameraHelper( pLight.shadow.camera );
-        //this.scene.add( helper );
+        var helper = new THREE.CameraHelper( pLight.shadow.camera );
+        this.scene.add( helper );
 
-        var fog = new THREE.FogExp2(0x220044, 0.05);
-        this.scene.background = new THREE.Color(0x220044);
+        var fog = new THREE.FogExp2(0x888888, 0.05);
+        this.scene.background = new THREE.Color(0x888888);
         this.scene.fog = fog;
 
         // objects
@@ -127,8 +130,9 @@ layout : default
             color: 0xCCCCCC,
             map: txt
         });
+
         var mesh = new THREE.Mesh(geom, mat);
-        mesh.castShadow = true;
+        mesh.castShadow = false;
         mesh.receiveShadow = true;
         this.scene.add(mesh);
 
@@ -137,14 +141,6 @@ layout : default
         this.mixer = null;
 
         var self = this;
-        var loader = new THREE.ColladaLoader();
-        loader.load( './objects/white_roomba.dae', function ( collada ) {
-            //var animations = collada.animations;
-            var avatar = collada.scene;
-            //self.mixer = new THREE.AnimationMixer( avatar );
-            //var action = self.mixer.clipAction( animations[ 0 ] ).play();
-            self.scene.add( avatar );
-        } );
 
         var l = new THREE.STLLoader();
         l.load('objects/ShadowCube_CHO_2.STL', function (g) {

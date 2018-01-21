@@ -15,19 +15,17 @@ layout : index
         right: 0;
         bottom: 0;
         background-color: rgba(0,0,0,0.0); /* Black background with opacity */
+        pointer-events: none;
         /*z-index: 1;*/ /* Specify a stack order in case you're using a different order for other elements */
-        /*cursor: pointer;*/ /* Add a pointer on hover */
     }
 </style>
-<script src="javascripts/pathFollower.js"></script>
+<script src="js/pathFollower.js"></script>
 
 <script>
-    //var pf = new PathFollower("objects/white_roomba.dae", 10, 1);
+    var pf = new PathFollower("objects/white_roomba.dae", 10, 1);
     $(document).ready(function () {
-        //pf.initContext($("#canvas"));
-        //pf.animate();
-        //$("#canvas").after($("#drawing"));
-        //$("#drawing").front();
+        pf.initContext($("#canvas"));
+        pf.animate();
     });
 </script>
 <div>
