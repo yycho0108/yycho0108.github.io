@@ -19,22 +19,27 @@
 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
 <script src="javascripts/jquery-1.11.3.js"></script> <!-- for development -->
 
+<!-- THREE.JS & Related -->
 <script src="javascripts/three.min.js"></script>
 <script src="javascripts/STLLoader.js"></script>
+<script src="javascripts/ColladaLoader.js"></script>
 <script src="javascripts/BufferSubdivisionModifier.js"></script>
 <script src="javascripts/OrbitControls.js"></script>
+
 <script src="javascripts/cannon.min.js"></script>
 <script src="javascripts/animateCube.js"></script>
 <script src="javascripts/animateDice.js"></script>
 <script src="javascripts/svg.min.js"></script>
-
 <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+
 <script>
-    WebFont.load({
-        google: {
-            families: ['Catamaran', 'Anton']
-        }
-    });
+    if(typeof(WebFont) !== "undefined"){
+        WebFont.load({
+            google: {
+                families: ['Catamaran', 'Anton']
+            }
+        });
+    }
 </script>
 
 <script src="javascripts/utils.js"></script>

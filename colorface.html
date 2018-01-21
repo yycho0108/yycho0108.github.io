@@ -5,6 +5,32 @@ layout : default
 
 <script type="text/javascript">
 
+    function logslider(x, inv) {
+        inv = inv || false;
+
+        // position will be between 0 and 100
+        var minp = 0;
+        var maxp = 100;
+
+        // The result should be between 100 an 10000000
+        var minv = Math.log(1);
+        var maxv = Math.log(180);
+
+        // calculate adjustment factor
+        var scale = (maxv - minv) / (maxp - minp);
+
+        if (inv) {
+            return (Math.log(x) - minv) / scale + minp;
+        } else {
+            return Math.exp(minv + scale * (x - minp));
+        }
+    }
+
+
+    function round(value, decimals) {
+        return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+    }
+
     function buildEdgeIndex(faces) {
 
         var key, keys = ['a', 'b', 'c'];
@@ -108,14 +134,22 @@ layout : default
 
         this.object = null;
         this.fIdx = null;
+        this.mixer = null;
 
         var self = this;
-
+        var loader = new THREE.ColladaLoader();
+        loader.load( './objects/white_roomba.dae', function ( collada ) {
+            //var animations = collada.animations;
+            var avatar = collada.scene;
+            //self.mixer = new THREE.AnimationMixer( avatar );
+            //var action = self.mixer.clipAction( animations[ 0 ] ).play();
+            self.scene.add( avatar );
+        } );
 
         var l = new THREE.STLLoader();
         l.load('objects/ShadowCube_CHO_2.STL', function (g) {
 
-            //g = new THREE.SphereGeometry(5,32,32);
+            //g = new THREE.SphereGeometry(5, 32, 32);
             g = new THREE.Geometry().fromBufferGeometry(g);
             g.mergeVertices();
             g.computeFaceNormals();
@@ -126,14 +160,22 @@ layout : default
                 flatShading: true
             });
 
-            for (var i = 0; i < g.faces.length; ++i) {
-                g.faces[i].color.setHex(0xAA5522);
-            }
+            //for (var i = 0; i < g.faces.length; ++i) {
+            //    g.faces[i].color.setHex(0xFFFFFF);
+            //}
+
             mesh = new THREE.Mesh(g, m);
+
             var box = new THREE.Box3().setFromObject(mesh);
             var size = box.getSize();
             var s = 1.0 / Math.min(size.x, size.y, size.z);
             mesh.scale.set(s, s, s); //shortest dimension will be 1
+
+            // reposition to touch ground ...
+            box.setFromObject(mesh);
+            mesh.position.sub(new THREE.Vector3(0, 0, box.min.z));
+
+            //;;box.min.z;
 
             //mesh.scale.set(1 / 40, 1 / 40, 1 / 40);
             //mesh.position.set(0,0,2);
@@ -195,6 +237,12 @@ layout : default
         this.ctrl = new THREE.OrbitControls(this.camera, this.renderer.domElement);
         this.ctrl.update();
 
+        $("#tol").change(function () {
+            var v = logslider($(this).val());
+            var vs = round(v, 2).toString();
+            $("#tolval").text('[' + vs + ' Deg]');
+        }).change();
+
         $(container)
             .mousedown(function (event) {
                 $(this).data("p0", {x: event.pageX, y: event.pageY});
@@ -226,20 +274,23 @@ layout : default
 
                 // if there is one (or more) intersections
                 if (intersects.length > 0) {
-                    var i = self.object.geometry.faces.indexOf(intersects[0].face);
+                    var i, j, k;
+
+                    i = self.object.geometry.faces.indexOf(intersects[0].face);
                     var res = [];
 
                     var tol = $("#tol").val();
-                    tol = deg2rad($("#tol").val());
+
+                    tol = deg2rad(logslider($("#tol").val()));
                     //tol = Math.cos(tol);
 
                     var col = new THREE.Color($("#col").val());
+                    var inter = [];
 
-                    console.log(event.which);
-                    switch(event.which){
+                    switch (event.which) {
                         case 1:
                             // build full connectivity, left mouse
-                            connectivity(i, self.fIdx, self.object.geometry.faces, [], res, tol);
+                            inter = connectivity(i, self.fIdx, self.object.geometry.faces, [], res, tol);
                             break;
                         case 3:
                             // single-face only, right mouse
@@ -250,9 +301,24 @@ layout : default
                             break;
                     }
 
-                    for (var j = 0; j < res.length; ++j) {
+
+                    for (j = 0; j < res.length; ++j) {
                         intersects[0].object.geometry.faces[res[j]].color.copy(col);
                     }
+
+                    // show intermediate propagations ...2
+                    // for(k=0; k < inter.length; ++k){
+                    //     var r = Math.random();
+                    //     var g = Math.random();
+                    //     var b = Math.random();
+                    //     col = new THREE.Color().setRGB(r,g,b);
+                    //     //col = col.multiplyScalar(0.8);
+                    //
+                    //     for(j=0; j<inter[k].length; ++j){
+                    //        intersects[0].object.geometry.faces[inter[k][j]].color.copy(col);
+                    //     }
+                    // }
+
                     intersects[0].object.geometry.colorsNeedUpdate = true;
 
                     var cols = self.object.geometry.faces.map(function (x) {
@@ -291,7 +357,9 @@ layout : default
         var i, k;
         var n, n2;
 
+        var inter = [];
         while (src.length > 0) {
+            inter.push(src);
             var nxt = [];
             var m = src.length;
             for (i = 0; i < m; ++i) {
@@ -305,7 +373,7 @@ layout : default
                     var f2 = fidx[face][k];
                     if (vis.indexOf(f2) < 0) { //not in vis
                         vis.push(f2); // now visited ...
-                        var n2 = ref[f2].normal; // neighboring face
+                        n2 = ref[f2].normal; // neighboring face
                         //console.log(n.angleTo(n2));
                         if (n.angleTo(n2) < tol) { // "well-connected"
                             nxt.push(f2);
@@ -316,6 +384,7 @@ layout : default
             src = nxt;
         }
 
+        return inter;
     }
 
     colorface = new ColorFace();
@@ -328,19 +397,22 @@ layout : default
 </script>
 
 <pre>
-    Select Face Color and Tolerance from the form above,
+    Select Face Color and Tolerance* from the form above,
     and then click to color the face!
     List of Colors corresponding to each face are printed in the textarea below.
 
     <strong>[L-Click]</strong> : Select Contiguous Region
     <strong>[R-Click]</strong> : Select Single Face
+
+    <em>* Slider in Log scale</em>
 </pre>
 
 <div>
     Face Color
     <input type="color" id="col">
-    Tolerance (Deg)
-    <input type="number" id="tol" name="tol" min="0" max="360" value="12">
+    Tolerance
+    <input type="range" id="tol" name="tol" min="0" max="100" value="50">
+    <p style="display:inline" id="tolval">[10.00 Deg]</p>
 </div>
 
 <div id="canvas" style="width:800px; height:800px">

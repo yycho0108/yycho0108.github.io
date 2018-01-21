@@ -2,15 +2,44 @@
 title : Index
 layout : index
 ---
-<div id="drawing" align="center">
+<style>
+    /* overlay */
+    #canvas{
+        position: absolute;
+        text-align: center;
+        display: block; /* Hidden by default */
+        width: 100%; /* Full width (cover the whole page) */
+        height: 100%; /* Full height (cover the whole page) */
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0,0,0,0.0); /* Black background with opacity */
+        /*z-index: 1;*/ /* Specify a stack order in case you're using a different order for other elements */
+        /*cursor: pointer;*/ /* Add a pointer on hover */
+    }
+</style>
+<script src="javascripts/pathFollower.js"></script>
 
+<script>
+    //var pf = new PathFollower("objects/white_roomba.dae", 10, 1);
+    $(document).ready(function () {
+        //pf.initContext($("#canvas"));
+        //pf.animate();
+        //$("#canvas").after($("#drawing"));
+        //$("#drawing").front();
+    });
+</script>
+<div>
+    <div id="drawing" align="center"></div>
+    <div id="canvas" align="center"></div>
 </div>
 
 <script type="text/javascript">
     if (!String.prototype.format) {
-        String.prototype.format = function() {
+        String.prototype.format = function () {
             var args = arguments;
-            return this.replace(/{(\d+)}/g, function(match, number) {
+            return this.replace(/{(\d+)}/g, function (match, number) {
                 return typeof args[number] != 'undefined'
                     ? args[number]
                     : match
@@ -18,36 +47,37 @@ layout : index
             });
         };
     }
-    function get_triangle(r, i, n, cx, cy, text, link, ts){
-        var theta = 2*Math.PI / n;
+
+    function get_triangle(r, i, n, cx, cy, text, link, ts) {
+        var theta = 2 * Math.PI / n;
         var angle = theta * i;
         var angle_deg = rad2deg(angle);
 
-        var col = hsv2rgb(i/n,1.0,1.0);
+        var col = hsv2rgb(i / n, 1.0, 1.0);
 
-        var y = r * Math.cos(theta/2);
-        var x = r * Math.sin(theta/2);
-        var pts = '{0},{1} {2},{3} {4},{5}'.format(0,0, x,-y, -x,-y);
+        var y = r * Math.cos(theta / 2);
+        var x = r * Math.sin(theta / 2);
+        var pts = '{0},{1} {2},{3} {4},{5}'.format(0, 0, x, -y, -x, -y);
 
         var grp = draw.group();
         grp.linkTo(link);
 
         // create ...
-        var tri = draw.polygon(pts).fill({color:col}).stroke({color:'white', width:8});
-        var txt = draw.text(text).fill({color:col});
+        var tri = draw.polygon(pts).fill({color: col}).stroke({color: 'white', width: 8});
+        var txt = draw.text(text).fill({color: col});
         txt.font({
-            family : 'Helvetica',
-            size : 20,
-            fill : col,
-            weight : 'bold'
+            family: 'Helvetica',
+            size: 20,
+            fill: col,
+            weight: 'bold'
         });
 
         // move to position
         var dr = r / 10.0;
         var dt = r / 10.0;
-        tri.move(cx-x,cy-y)
+        tri.move(cx - x, cy - y)
             .rotate(angle_deg, cx, cy);
-        txt.move(cx-x,cy-y-dt)
+        txt.move(cx - x, cy - y - dt)
             .rotate(angle_deg, cx, cy);
 
         // arrange
@@ -55,29 +85,29 @@ layout : index
         txt.toParent(grp);
         txt.after(tri);
 
-        grp.mouseover(function(){
+        grp.mouseover(function () {
             this.front();
-            for(t in ts){
-                ts[t].attr({'fill-opacity':0.5});
+            for (t in ts) {
+                ts[t].attr({'fill-opacity': 0.5});
             }
-            this.attr({'fill-opacity':1.0});
-            var dx = dr*Math.sin(angle);
-            var dy = -dr*Math.cos(angle);
+            this.attr({'fill-opacity': 1.0});
+            var dx = dr * Math.sin(angle);
+            var dy = -dr * Math.cos(angle);
             this.animate(500, '<>')
-                .move(dx,dy);
-        }).mouseout(function(){
-            for(t in ts){
-                ts[t].attr({'fill-opacity':1.0});
+                .move(dx, dy);
+        }).mouseout(function () {
+            for (t in ts) {
+                ts[t].attr({'fill-opacity': 1.0});
             }
             this.stop();
             this.front();
-            this.move(0,0);
+            this.move(0, 0);
         });
         return grp;
     }
 
-    function get_ring(txt, a1, a2, r, cx, cy){
-        var ring = draw.text(function(add){
+    function get_ring(txt, a1, a2, r, cx, cy) {
+        var ring = draw.text(function (add) {
             add.tspan(txt);
         });
 
@@ -86,59 +116,59 @@ layout : index
 
         var x1 = r * Math.cos(a2);
         var y1 = -r * Math.sin(a2);
-        var d = r*2;
+        var d = r * 2;
 
         var path = ('M {0},{1} m 0,-{2} ' +
             'a {2},{2} 0 0,1 0,{3} ' +
             'a {2},{2} 0 0,1 0,-{3} ')
             .format(cx, cy, r, d);
         ring.path(path).font({
-            family : 'Helvetica',
-            size : 30,
-            fill : '#888888',
-            weight : 'bold'
+            family: 'Helvetica',
+            size: 30,
+            fill: '#888888',
+            weight: 'bold'
         });
         ring.animate(10000)
-            .rotate(-360,cx,cy)
+            .rotate(-360, cx, cy)
             .loop();
     }
 
     // draw subject-wise polygons ...
     //$(document).ready(function(){
-        var size = 784;
-        var draw = SVG('drawing').size(size, size);
-        var subjects = ['Intro','Academics','Projects','Research','Personal'];
-        var links = ['./intro', './Academics', 'projects', 'research', 'personal'];
-        var cx = size/2;
-        var cy = size/2;
-        var r = size/3;
-        var n = subjects.length;
+    var size = 784;
+    var draw = SVG('drawing').size(size, size);
+    var subjects = ['Intro', 'Academics', 'Projects', 'Research', 'Personal'];
+    var links = ['./intro', './Academics', 'projects', 'research', 'personal'];
+    var cx = size / 2;
+    var cy = size / 2;
+    var r = size / 3;
+    var n = subjects.length;
 
-        var ts = []
-        for(i=0; i<n; ++i){
-            var t = get_triangle(r, i, n, cx, cy, subjects[i], links[i], ts);
-            ts.push(t);
-        }
+    var ts = [];
+    for (i = 0; i < n; ++i) {
+        var t = get_triangle(r, i, n, cx, cy, subjects[i], links[i], ts);
+        ts.push(t);
+    }
 
-        get_ring(
-            '| YOONYOUNG CHO | ' +
-            'Robotics & Software Engineer | ' +
-            'Olin College of Engineering, Class of 2019 | ' +
-            '213-220-3492 | ' +
-            'jchocholate@gmail.com |',
-            deg2rad(90+30), deg2rad(90-30), size*2/5, cx, cy);
+    get_ring(
+        '| YOONYOUNG CHO | ' +
+        'Robotics & Software Engineer | ' +
+        'Olin College of Engineering, Class of 2019 | ' +
+        '213-220-3492 | ' +
+        'jchocholate@gmail.com |',
+        deg2rad(90 + 30), deg2rad(90 - 30), size * 2 / 5, cx, cy);
 
-        var grad = draw.gradient('radial', function(stop){
-            stop.at(0, '#ffffff');
-            stop.at(0.7, '#ffffff');
-            stop.at(0.8, '#f0f0f0');
-            //stop.at(0.6, '#eeeeff');
-            //stop.at(0.7, '#ffffff');
-            //stop.at(0.8, '#ffeeff');
-            //stop.at(0.9, '#ffffff');
-            stop.at(1, '#ffffff');
-        });
-        var bk = draw.rect(size,size).radius(size).fill(grad);
-        bk.back();
+    var grad = draw.gradient('radial', function (stop) {
+        stop.at(0, '#ffffff');
+        stop.at(0.7, '#ffffff');
+        stop.at(0.8, '#f0f0f0');
+        //stop.at(0.6, '#eeeeff');
+        //stop.at(0.7, '#ffffff');
+        //stop.at(0.8, '#ffeeff');
+        //stop.at(0.9, '#ffffff');
+        stop.at(1, '#ffffff');
+    });
+    var bk = draw.rect(size, size).radius(size).fill(grad);
+    bk.back();
     //});
 </script>
