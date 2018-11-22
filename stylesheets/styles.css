@@ -652,6 +652,25 @@ div.preview {
     overflow: hidden;
     text-align: center;
 }
+
+.intro-section{
+    font-weight: bold;
+    color: whitesmoke;
+    background-color: dodgerblue;
+    padding: 0.5em;
+    margin-top: 1em;
+}
+
+.intro-item {
+    float: left;
+    display: block;
+    margin-left: 1em;
+    background-color: deepskyblue;
+    padding: 0.5em;
+    margin-top: 0.5em;
+    color: white;
+}
+
 /*
 .browser-header:before, .browser-header:after {
     position: absolute;

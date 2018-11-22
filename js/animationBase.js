@@ -7,6 +7,15 @@ var AnimationBase = function (opts) {
         rsz : true
     };
     Object.assign(this._opts, opts);
+
+    this.scene = new THREE.Scene();
+    // create default camera ...
+    this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 50);
+    this.camera.up = new THREE.Vector3(0, 0, 1);
+    this.camera.position.set(5, 0, 3);
+    this.camera.lookAt(this.scene.position);
+    this.scene.add(this.camera);
+
 };
 
 AnimationBase.prototype.initContext = function (container) {
@@ -16,6 +25,7 @@ AnimationBase.prototype.initContext = function (container) {
     var h = this.container.height();
     var w = this.container.width();
 
+    // camera
     //renderer
     this.renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
 
@@ -35,7 +45,7 @@ AnimationBase.prototype.initContext = function (container) {
 
     if(opts.center){
         $(this.renderer.domElement).css({
-            'position': 'absolute',
+            'position': 'relative',
             'left': '50%',
             'top': '50%',
             'margin-left': function () {
@@ -66,7 +76,7 @@ AnimationBase.prototype.initContext = function (container) {
 };
 
 AnimationBase.prototype.render = function(){
-    if(opts.ctrl){
+    if(this._opts.ctrl){
         this.ctrl.update();
     }
     this.renderer.render(this.scene, this.camera);

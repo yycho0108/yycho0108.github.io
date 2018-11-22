@@ -3,44 +3,60 @@ title : Intro
 layout : default
 ---
 
+<div style="background-color: royalblue; color:white; padding:2%; font-family: 'Open Sans'; text-align: center">
+    <img src="images/jamie.jpeg" style="
+    border-radius:50%; width:20%; display: block; margin-left:auto; margin-right:auto; border: 5px solid skyblue;
+    "/>
+    <div style="
+    width:65%; padding-left:20px; margin:0px; background:none; display: block;
+     margin-top:2%;
+     margin-left:auto; margin-right:auto;
+    ">
+
+        <p><strong>Yoonyoung (Jamie) Cho</strong> | Robotics Software Engineer</p>
+
+        <p>Olin College of Engineering | class of 2019</p>
+
+        <p>
+            I'm currently a senior at Olin College of Engineering.
+            I love all apsects of Robotics, encompassing software, electrical, and mechanical components.
+            Among the software components, I specialize in perception and autonomy.
+        </p>
+
+        Machine Learning | Computer Vision | Computer Graphics | App Development | Robot Design & Fabrication
+        </pre>
+    </div>
+    <div style="float:none; clear:both;"></div>
+</div>
+<!--
 <img src="images/profile.jpg"/>
-<p>I'm a Senior at Olin College of Engineering, class of 2019.</p>
-<p>My core interests are Robotics -- all aspects of Robotics, encompassing software, electrical, and mechanical
-    components, are fascinating to me.</p>
-<p>My experiences include Machine Learning, Computer Vision, Computer Graphics, App Development, Robot
-    Design/Fabrication, etc.</p>
+-->
 
-{% assign languages = "C/C++|Python|Javascript|MATLAB|HTML|Bash|Java" | split: "|" %}
-{% assign frameworks = "ROS|Tensorflow|CUDA|Android|OpenGL|WebGL|MySQL|MongoDB|AWS|Node/Express|QT|Arduino|WINAPI" | split: "|" %}
-{% assign fabrications = "Solidworks|3D Printing|Sheet Metal|Mill(CNC/Manual)|Lathe|MIG Welder" | split: "|" %}
+{% assign languages = "C/C++|Python|Javascript|Java|MATLAB|Bash|HTML" | split: "|" %}
+{% assign frameworks = "ROS|Tensorflow|Android|CUDA|OpenGL|WebGL|MySQL|MongoDB|AWS|Node/Express|QT|Arduino|WINAPI" | split: "|" %}
+{% assign fabrications = "Solidworks|Laser-Cutter|3D Printer|Mill(CNC/Manual)|Lathe|Sheet Metal|MIG Welder" | split: "|" %}
 
+
+<div class="intro-section">Language</div>
 <ul>
-    <li>
-        <span>Languages</span>
-        <ul>
-            {% for language in languages %}
-            <li>{{ language }}</li>
-            {% endfor %}
-        </ul>
-    </li>
-
-    <li>
-        <span>Frameworks</span>
-        <ul>
-            {% for framework in frameworks %}
-            <li>{{ framework }}</li>
-            {% endfor %}
-        </ul>
-
-    </li>
-
-    <li>
-        <span>Fabrication</span>
-        <ul>
-            {% for fabrication in fabrications %}
-            <li>{{ fabrication }}</li>
-            {% endfor %}
-        </ul>
-    </li>
-
+    {% for language in languages %}
+    <li class="intro-item">{{ language }}</li>
+    {% endfor %}
 </ul>
+<div style="float:none; clear:both;"></div>
+
+<div class="intro-section">Framework</div>
+<ul>
+    {% for framework in frameworks %}
+    <li class="intro-item">{{ framework }}</li>
+    {% endfor %}
+</ul>
+<div style="float:none; clear:both;"></div>
+
+<div class="intro-section">Fabrication</div>
+<ul>
+    {% for fabrication in fabrications %}
+    <li class="intro-item">{{ fabrication }}</li>
+    {% endfor %}
+</ul>
+<div style="float:none; clear:both;"></div>
