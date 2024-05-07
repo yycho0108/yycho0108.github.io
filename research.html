@@ -3,5 +3,210 @@ title : Research
 layout : default
 ---
 
-<ul>
-</ul>
+<html>
+  <head>
+    <!-- Title -->
+    <title>Yoonyoung Cho - KAIST IM^2</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1000">
+
+    <!-- Isotope JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="stylesheets/research.css">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+    </style>
+  </head>
+
+  <body id="body">
+
+    <div id="main">
+      <div id="intro">
+        <div id="intro-text">
+          <h1>Yoonyoung Cho</h1>
+          <p>
+            I'm a Ph.D student at <a href="https://imsquared.org/">KAIST IM^2</a>, where I work on developing intelligent AI algorithms for robot manipulation.
+            Currently, my research focuses on generalizable non-prehensile robot manipulation, where a robot can manipulate general objects of arbitrary geometry to target configurations.
+            <div id="more-bio" style="display: None">
+              <br>
+              <p>Yoonyoung Cho is a Ph.D student at <a href="https://imsquared.org/">KAIST IM^2</a>, working with a small team on Nonprehensile robot manipulation. He received his undergrad at Olin College on
+              Engineering with Robotics Concentration. Published papers at IROS'22, ICRA'24, ICLR'24. </p>
+            </div>
+            <br>
+            <!--<a href="javascript:toggle_bio()">Formal Bio</a>&nbsp;&nbsp;&nbsp;&nbsp;-->
+            <a href="https://github.com/yycho0108">Github</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://scholar.google.com/citations?hl=en&user=CAjYAYMAAAAJ">G. Scholar</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.linkedin.com/in/yycho0108">LinkedIn</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <br><br>
+            yoonyoung dot cho at kaist dot ac dot kr
+            <br><br>
+          </p>
+        </div>
+        <div id="intro-image">
+          <img src="images/profile.jpg">
+        </div>
+      </div>
+
+      <div id="filters" class="button-group">
+        <!-- <button class="button" data-filter="*">Show All</button> -->
+        <!-- <button class="button is-checked" data-filter=".highlight">Highlights</button> -->
+        <button class="button" data-filter=".publication">Research</button>
+        <!--<button class="button" data-filter=".talk">Talks</button> -->
+        <!--<button class="button" data-filter=".misc">Misc</button>-->
+      </div>
+
+      <div class="grid">
+
+        <!-- Publications -->
+        <div class="list-item publication" data-category="publication">
+          <a href="https://sites.google.com/view/contact-non-prehensile" class="thumbnail">
+            <img src="https://img.youtube.com/vi/TQE-Wku_2sk/0.jpg" alt="" />
+          </a>
+          <div class="project-description">
+            <h3><a href="https://arxiv.org/abs/2402.05741">CORN: Contact-based Object Representation for Nonprehensile Manipulation of General Unseen Objects</a></h3>
+            <p>
+              Yoonyoung Cho, Junhyek Han, Yoontae Cho, Beomjoon Kim<br>
+                <i>International Conference on Learning Representations (ICLR), 2024.</i><br>
+                <!-- <a href="https://video-language-planning.github.io/">Webpage</a>&nbsp;&nbsp;&bull;&nbsp;&nbsp; -->
+                <a href="https://sites.google.com/view/contact-non-prehensile">Webpage</a>&nbsp;&nbsp;&bull;&nbsp;&nbsp;
+                <a href="https://github.com/iMSquared/corn">Github</a>&nbsp;&nbsp;&bull;&nbsp;&nbsp;
+                <a href="https://arxiv.org/abs/2403.10760">PDF</a>
+                <br> <!-- TODO: extra spaces until I figure out the margin bug. -->
+            </p>
+          </div>
+        </div>
+
+        <div class="list-item publication" data-category="publication">
+          <a href="https://robotics-transformer-x.github.io/" class="thumbnail">
+            <video playsinline="" muted="" autoplay="" loop="" width="180px">
+              <source src="https://robotics-transformer-x.github.io/video/teaser_compressed.mp4" type="video/mp4">
+            </video>
+          </a>
+          <div class="project-description">
+            <h3><a href="https://robotics-transformer-x.github.io/">Open x-embodiment: Robotic learning datasets and RT-x models</a></h3>
+            <p>Open X-Embodiment Collaboration<br>
+                <i>International Conference on Robotics and Automation (ICRA), 2024.</i><br>
+                <a href="https://robotics-transformer-x.github.io/">Webpage</a>&nbsp;&nbsp;&bull;&nbsp;&nbsp;
+                <a href="https://github.com/google-deepmind/open_x_embodiment">Github</a>&nbsp;&nbsp;&bull;&nbsp;&nbsp;
+                <a href="https://github.com/google-deepmind/open_x_embodiment">Dataset</a>&nbsp;&nbsp;&bull;&nbsp;&nbsp;
+                <a href="https://robotics-transformer-x.github.io/paper.pdf">PDF</a>
+            </p>
+          </div>
+        </div>
+
+        <div class="list-item publication" data-category="publication">
+          <a href="https://www.researchgate.net/publication/366612474_O_2_Optimal_Hierarchical_Planner_for_Object_Search_in_Large_Environments_via_Mobile_Manipulation" class="thumbnail">
+            <img src="images/iros2022-ohm2.png" alt="" />
+          </a>
+          <div class="project-description">
+            <h3><a href="https://www.researchgate.net/publication/366612474_O_2_Optimal_Hierarchical_Planner_for_Object_Search_in_Large_Environments_via_Mobile_Manipulation">Optimal Hierarchical Planner for Object Search in Large Environments via Mobile Manipulation</a></h3>
+            <p>Yoonyoung Cho, Donghoon Shin, Beomjoon Kim<br>
+            <i>International Conference on Intelligent Robots and Systems (IROS) 2022</i><br>
+            <!-- <a href="https://robot-teaching.github.io/">Webpage</a>&nbsp;&nbsp;&bull;&nbsp;&nbsp; -->
+            <a href="https://imsquared.org/papers/cho-iros-2022.pdf">PDF</a>&nbsp;&nbsp;&bull;&nbsp;&nbsp;
+            <!-- <a href="https://colab.research.google.com/drive/1YcRN_kklw3cVVJNvgK_IEV6nDce9EJWK?usp=sharing">Code</a> -->
+            <br> <!-- TODO: extra spaces until I figure out the margin bug. -->
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="footer">Adopted the template from <a href="https://github.com/andyzeng/andyzeng.github.io">Andy Zeng's website</a>, in turn inspired by <a href="https://jonbarron.info/">Jon's website</a>.</div>
+
+    </div>
+
+    <script>
+
+      // Isotope grid.
+      var $grid = $('.grid').isotope({
+        itemSelector: '.list-item',
+        layoutMode: 'fitRows',
+        transitionDuration: 0,
+        stagger: 10,
+        initLayout: false,
+        getSortData: {
+          name: '.name',
+          symbol: '.symbol',
+          number: '.number parseInt',
+          category: '[data-category]',
+          weight: function( itemElem ) {
+            var weight = $( itemElem ).find('.weight').text();
+            return parseFloat( weight.replace( /[\(\)]/g, '') );
+          }
+        }
+      });
+
+      // Bind filter button click.
+      $('#filters').on( 'click', 'button', function() {
+        var filterValue = $( this ).attr('data-filter');
+        localStorage.setItem('filterValue', filterValue);
+        $grid.isotope({ filter: filterValue });
+      });
+
+      // Change is-checked class on buttons.
+      $('.button-group').each( function( i, buttonGroup ) {
+        var $buttonGroup = $( buttonGroup );
+        $buttonGroup.on( 'click', 'button', function() {
+          $buttonGroup.find('.is-checked').removeClass('is-checked');
+          $( this ).addClass('is-checked');
+        });
+      });
+
+      function update_isotope() {
+        // Retrieve cached button click.
+        var defaultFilterValue = localStorage.getItem('filterValue');
+        if (defaultFilterValue == null) {
+          defaultFilterValue = ".highlight"
+        }
+        $grid.isotope({ filter: defaultFilterValue });
+        var buttons = document.getElementsByClassName("button");
+        for (var currButton of buttons) {
+          if (currButton.getAttribute('data-filter') == defaultFilterValue) {
+            currButton.classList.add('is-checked');
+          } else {
+            currButton.classList.remove('is-checked');
+          }
+        }
+      }
+
+      function toggle_bio() {
+        var x = document.getElementById("more-bio");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      }
+
+      function toggle_highlights() {
+        var x = document.getElementById("main-highlights");
+        var y = document.getElementById("more-highlights");
+        var b = document.getElementById("toggle_highlights_button")
+        if (y.style.display === "none") {
+          x.style.display = "none";
+          y.style.display = "block";
+          b.innerHTML = "Show less"
+          update_isotope();
+        } else {
+          x.style.display = "block";
+          y.style.display = "none";
+          b.innerHTML = "Show more"
+          update_isotope();
+        }
+      }
+
+      update_isotope();
+
+    </script>
+  </body>
+</html>
